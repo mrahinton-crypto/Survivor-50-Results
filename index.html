@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0d0d0d">
-<title>Survivor 50 Pool — Final Results</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Survivor 50 Pool — Final Results</title>
+
+  <meta name="description" content="The Survivor 50 pool finale is here. See the final standings, weekly winner, draft results, finale picks, and who takes home the prize.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <meta property="og:title" content="Survivor 50 Pool — Final Results">
+  <meta property="og:description" content="The votes are in. Tap to reveal the Survivor 50 pool winner.">
+  <meta property="og:image" content="https://mrahinton-crypto.github.io/Survivor-50-Results/preview.jpg">
+  <meta property="og:url" content="https://mrahinton-crypto.github.io/Survivor-50-Results/">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Survivor 50 Pool — Final Results">
+  <meta name="twitter:description" content="The votes are in. Tap to reveal the Survivor 50 pool winner.">
+  <meta name="twitter:image" content="https://mrahinton-crypto.github.io/Survivor-50-Results/preview.jpg">
+
+  <link rel="apple-touch-icon" href="app-icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
@@ -328,6 +343,16 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
   color:var(--fire);letter-spacing:4px;text-shadow:0 0 20px rgba(255,69,0,.4);}
 .footer-meta{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.2);margin-top:12px;font-weight:300;}
 
+
+/* ══ TAP-TO-START OVERLAY — REQUIRED FOR MOBILE AUDIO ══ */
+#enter-screen{position:fixed;inset:0;z-index:12000;background:radial-gradient(ellipse at 50% 110%,rgba(255,69,0,.35) 0%,transparent 55%),#0d0d0d;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;}
+.enter-card{border:1px solid rgba(255,215,0,.45);background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,69,0,.08));border-radius:12px;padding:28px 22px;max-width:420px;width:100%;box-shadow:0 0 70px rgba(255,69,0,.22);}
+.enter-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,14vw,78px);letter-spacing:3px;line-height:.9;background:linear-gradient(180deg,#fff8e1,#FFD700,#FF4500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 24px rgba(255,140,0,.5));}
+.enter-sub{font-size:13px;letter-spacing:2px;color:rgba(255,255,255,.6);margin:14px 0 20px;font-weight:300;line-height:1.5;}
+.enter-btn{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;border:none;border-radius:6px;padding:14px 22px;background:var(--fire);color:#fff;cursor:pointer;box-shadow:0 8px 30px rgba(255,69,0,.45);width:100%;}
+.enter-note{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.32);margin-top:12px;font-weight:300;}
+#enter-screen.hide{display:none;}
+
 /* ══ SCROLL REVEAL ══ */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
 .reveal.in{opacity:1;transform:none;}
@@ -359,6 +384,15 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
 </style>
 </head>
 <body>
+
+<div id="enter-screen">
+  <div class="enter-card">
+    <div class="enter-title">SURVIVOR 50</div>
+    <div class="enter-sub">The votes are in. Tap below to start the finale reveal with Jeff’s voice.</div>
+    <button class="enter-btn" onclick="enterIsland()">🔥 ENTER THE ISLAND</button>
+    <div class="enter-note">A TAP IS NEEDED SO MOBILE BROWSERS ALLOW AUDIO</div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -570,7 +604,7 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
 
 <script>
 // ══ DATA ══
-const EL_KEY = 'sk_0928b4d12deed627f10e24bccf32282ff704868f5f52a892';
+const EL_KEY = 'PASTE_YOUR_ELEVENLABS_API_KEY_HERE';
 const EL_VOICE = 'pNInz6obpgDQGcFmaJgB'; // Adam
 
 const players = [
@@ -739,6 +773,12 @@ async function jeffSay(text){
   // If opened as local file, browser blocks external API calls - use speech fallback
   if(isLocalFile()){
     setStatus('BROWSER VOICE (local file)');
+    speechFallback(text);
+    return;
+  }
+
+  if(!EL_KEY || EL_KEY.includes('PASTE_YOUR_ELEVENLABS')){
+    setStatus('BROWSER VOICE — ADD ELEVENLABS KEY');
     speechFallback(text);
     return;
   }
@@ -1079,10 +1119,20 @@ buildCast();
 buildDraft();
 buildFinale();
 
-// Show Jeff fab after 1s, then auto-play intro
-setTimeout(()=>{
-  document.getElementById('jeff-fab').style.display='flex';
+// Audio on mobile/Chrome must be triggered by a user tap.
+function enterIsland(){
+  const enter = document.getElementById('enter-screen');
+  if(enter) enter.classList.add('hide');
+  document.getElementById('jeff-fab').style.display='none';
   jeffSay(Q.intro);
+}
+
+// Show Jeff button after the intro screen is dismissed/if user closes panel
+setTimeout(()=>{
+  const enter = document.getElementById('enter-screen');
+  if(!enter || enter.classList.contains('hide')){
+    document.getElementById('jeff-fab').style.display='flex';
+  }
 },1000);
 </script>
 </body>
