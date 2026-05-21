@@ -1,447 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Survivor 50 Pool — Final Results</title>
-
-  <meta name="description" content="The Survivor 50 pool finale is here. See the final standings, weekly winner, draft results, finale picks, and who takes home the prize.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0d0d0d">
-
-  <meta property="og:title" content="Survivor 50 Pool — Final Results">
-  <meta property="og:description" content="The votes are in. Tap to reveal the Survivor 50 pool winner.">
-  <meta property="og:image" content="https://mrahinton-crypto.github.io/Survivor-50-Results/preview.jpg">
-  <meta property="og:url" content="https://mrahinton-crypto.github.io/Survivor-50-Results/">
-  <meta property="og:type" content="website">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Survivor 50 Pool — Final Results">
-  <meta name="twitter:description" content="The votes are in. Tap to reveal the Survivor 50 pool winner.">
-  <meta name="twitter:image" content="https://mrahinton-crypto.github.io/Survivor-50-Results/preview.jpg">
-
-  <link rel="apple-touch-icon" href="app-icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<title>Survivor 50 Pool — Final Results</title>
+<meta property="og:title" content="Survivor 50 Pool — Final Results">
+<meta property="og:description" content="The votes are in. See who won the Survivor 50 pool.">
+<meta property="og:url" content="https://mrahinton-crypto.github.io/Survivor-50-Results/">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
   --fire:#FF4500;--ember:#FF8C00;--gold:#FFD700;--silver:#C0C0C0;--bronze:#CD7F32;
-  --cream:#F2E6C9;--dark:#0d0d0d;--card:#161616;--card2:#1e1e1e;
+  --cream:#F5EDD6;--dark:#0a0a0a;--card:#141414;--card2:#1c1c1c;
+  --torch-red:#c0392b;
 }
 html{scroll-behavior:smooth;background:var(--dark);}
 body{background:var(--dark);color:var(--cream);font-family:'Oswald',sans-serif;overflow-x:hidden;min-height:100dvh;}
 
-/* ══ SURVIVOR LOGO HERO ══ */
+/* ══ ENTER SCREEN ══ */
+#enter-screen{
+  position:fixed;inset:0;z-index:12000;
+  background:#0a0a0a;
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;
+}
+#enter-screen.gone{display:none;}
+.enter-inner{max-width:380px;width:100%;}
+.enter-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,22vw,120px);
+  line-height:.85;letter-spacing:3px;
+  background:linear-gradient(180deg,#fffde7 0%,#FFD700 30%,#FF8C00 60%,#FF4500 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 40px rgba(255,140,0,.7));
+  margin-bottom:8px;
+}
+.enter-season{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,3.5vw,16px);
+  letter-spacing:clamp(8px,3vw,16px);color:var(--ember);margin-bottom:32px;
+}
+.enter-torch-row{font-size:clamp(28px,8vw,44px);letter-spacing:16px;margin-bottom:28px;
+  animation:torchpulse 1s ease-in-out infinite alternate;}
+@keyframes torchpulse{from{filter:brightness(1);}to{filter:brightness(1.5) saturate(1.3);}}
+.enter-tagline{font-size:clamp(13px,3.5vw,16px);color:rgba(255,255,255,.55);
+  letter-spacing:1px;font-weight:300;margin-bottom:28px;line-height:1.5;}
+.enter-btn{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,5vw,26px);letter-spacing:3px;
+  border:none;border-radius:4px;padding:16px 28px;
+  background:linear-gradient(135deg,#FF4500,#FF8C00);color:#fff;
+  cursor:pointer;width:100%;
+  box-shadow:0 8px 32px rgba(255,69,0,.5);
+  animation:btnpulse 2s ease-in-out infinite;
+}
+@keyframes btnpulse{0%,100%{box-shadow:0 8px 32px rgba(255,69,0,.4);}50%{box-shadow:0 8px 48px rgba(255,69,0,.8);}}
+.enter-note{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.25);margin-top:12px;font-weight:300;}
+
+/* ══ HERO — POOL WINNER FOCUS ══ */
 .hero{
   min-height:100dvh;display:flex;flex-direction:column;
   align-items:center;justify-content:center;text-align:center;
-  padding:60px 20px 40px;position:relative;overflow:hidden;
-  background:
-    radial-gradient(ellipse at 50% 110%,rgba(255,69,0,.35) 0%,transparent 55%),
-    radial-gradient(ellipse at 50% -10%,rgba(255,140,0,.1) 0%,transparent 50%),
-    #0d0d0d;
+  padding:70px 20px 50px;position:relative;overflow:hidden;
 }
-.hero-torches{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;}
-.torch-flame{position:absolute;top:0;font-size:clamp(40px,8vw,70px);animation:flicker .4s ease-in-out infinite alternate;}
-.torch-flame.left{left:clamp(8px,3vw,32px);animation-delay:.15s;}
-.torch-flame.right{right:clamp(8px,3vw,32px);}
-@keyframes flicker{from{transform:rotate(-3deg) scale(1);filter:brightness(1);}to{transform:rotate(3deg) scale(.93);filter:brightness(1.4) hue-rotate(10deg);}}
+.hero-bg{position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 50% 100%,rgba(255,69,0,.3) 0%,transparent 60%),
+    radial-gradient(ellipse at 20% 50%,rgba(255,140,0,.08) 0%,transparent 40%),
+    radial-gradient(ellipse at 80% 50%,rgba(255,69,0,.08) 0%,transparent 40%),
+    #0a0a0a;
+}
+/* Animated fire particles */
+.particle{position:absolute;bottom:0;border-radius:50%;pointer-events:none;animation:rise linear infinite;}
+@keyframes rise{0%{transform:translateY(0) scale(1);opacity:.6;}100%{transform:translateY(-100vh) scale(0);opacity:0;}}
 
-/* The actual Survivor wordmark */
-.survivor-wordmark{
+.torch-l,.torch-r{position:absolute;top:0;font-size:clamp(44px,9vw,72px);
+  animation:flicker .35s ease-in-out infinite alternate;z-index:2;}
+.torch-l{left:clamp(6px,2vw,24px);animation-delay:.12s;}
+.torch-r{right:clamp(6px,2vw,24px);}
+@keyframes flicker{from{transform:rotate(-3deg) scale(1);filter:brightness(1);}
+  to{transform:rotate(3deg) scale(.9);filter:brightness(1.5) hue-rotate(8deg);}}
+
+/* SURVIVOR wordmark */
+.s-wordmark{
   position:relative;z-index:2;
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(64px,18vw,160px);
-  line-height:.85;
-  letter-spacing:4px;
-  background:linear-gradient(180deg,#fff8e1 0%,#FFD700 35%,#FF8C00 65%,#FF4500 100%);
+  font-size:clamp(52px,14vw,110px);
+  line-height:.85;letter-spacing:5px;
+  background:linear-gradient(180deg,#fffde7 0%,#FFD700 35%,#FF8C00 65%,#FF4500 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 30px rgba(255,140,0,.6)) drop-shadow(0 4px 2px rgba(0,0,0,.8));
+  filter:drop-shadow(0 0 25px rgba(255,140,0,.65)) drop-shadow(0 3px 2px rgba(0,0,0,.9));
+  margin-bottom:2px;
 }
-.season-50-badge{
+.s-season{
   position:relative;z-index:2;
-  font-family:'Bebas Neue',sans-serif;font-size:clamp(11px,3vw,18px);
-  letter-spacing:clamp(6px,2vw,14px);color:var(--ember);
-  margin-top:4px;margin-bottom:24px;
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(10px,2.5vw,15px);
+  letter-spacing:clamp(6px,2vw,12px);color:var(--ember);margin-bottom:20px;
 }
-.fire-line{
-  position:relative;z-index:2;width:min(320px,80vw);height:3px;
-  background:linear-gradient(90deg,transparent,var(--fire),var(--gold),var(--fire),transparent);
-  margin:0 auto 28px;box-shadow:0 0 12px rgba(255,140,0,.6);
+.fire-bar{
+  position:relative;z-index:2;
+  width:min(280px,75vw);height:2px;margin:0 auto 28px;
+  background:linear-gradient(90deg,transparent,#FF4500,#FFD700,#FF4500,transparent);
+  box-shadow:0 0 10px rgba(255,140,0,.7);
 }
 
-/* Winner announce */
-.winner-box{
+/* ══ POOL WINNER REVEAL — THE MAIN EVENT ══ */
+.pool-winner-wrap{position:relative;z-index:2;width:90%;max-width:480px;margin-bottom:20px;}
+
+.pool-winner-card{
+  border-radius:8px;padding:clamp(20px,5vw,32px);
+  background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,69,0,.08));
+  border:2px solid rgba(255,215,0,.6);
+  box-shadow:0 0 80px rgba(255,215,0,.25),0 0 160px rgba(255,69,0,.1),inset 0 0 40px rgba(255,215,0,.05);
+  animation:poolWinnerGlow 3s ease-in-out infinite;
+}
+@keyframes poolWinnerGlow{
+  0%,100%{box-shadow:0 0 60px rgba(255,215,0,.2),inset 0 0 30px rgba(255,215,0,.04);}
+  50%{box-shadow:0 0 120px rgba(255,215,0,.5),0 0 200px rgba(255,69,0,.2),inset 0 0 60px rgba(255,215,0,.08);}
+}
+.pool-winner-eyebrow{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(9px,2vw,11px);
+  letter-spacing:6px;color:var(--fire);margin-bottom:8px;
+}
+.pool-winner-amount{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,14vw,100px);
+  color:var(--gold);line-height:1;
+  text-shadow:0 0 40px rgba(255,215,0,.6),0 4px 8px rgba(0,0,0,.8);
+  margin-bottom:4px;
+}
+.pool-winner-name{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,10vw,72px);
+  color:var(--cream);letter-spacing:4px;line-height:1;
+  text-shadow:0 0 20px rgba(255,255,255,.2);margin-bottom:8px;
+}
+.pool-winner-sub{
+  font-size:clamp(10px,2.5vw,13px);letter-spacing:3px;
+  color:rgba(255,255,255,.45);font-weight:300;margin-bottom:16px;
+}
+.pool-winner-stats{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+}
+.pw-stat{
+  background:rgba(0,0,0,.4);border:1px solid rgba(255,215,0,.2);
+  border-radius:4px;padding:6px 12px;text-align:center;
+}
+.pw-stat-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);display:block;}
+.pw-stat-lbl{font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.35);}
+
+/* Aubry badge - secondary */
+.survivor-winner-badge{
   position:relative;z-index:2;
-  border:1px solid rgba(255,215,0,.5);border-radius:4px;
-  padding:clamp(14px,4vw,24px) clamp(20px,6vw,48px);
-  background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,69,0,.06));
-  box-shadow:0 0 60px rgba(255,215,0,.2),inset 0 0 30px rgba(255,215,0,.04);
-  animation:glow 3s ease-in-out infinite;max-width:500px;width:90%;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;padding:10px 16px;margin-bottom:24px;
+  width:90%;max-width:480px;
 }
-@keyframes glow{0%,100%{box-shadow:0 0 40px rgba(255,215,0,.15);}50%{box-shadow:0 0 80px rgba(255,215,0,.4);}}
-.winner-label{font-size:clamp(9px,2vw,11px);letter-spacing:5px;color:var(--fire);margin-bottom:6px;}
-.winner-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,7vw,52px);
-  color:var(--gold);letter-spacing:2px;line-height:1;
-  text-shadow:0 0 30px rgba(255,215,0,.5);}
-.winner-sub{font-size:clamp(11px,2.5vw,14px);color:rgba(255,255,255,.5);
-  letter-spacing:2px;margin-top:6px;font-weight:300;}
-.prize-row{
-  position:relative;z-index:2;
-  display:flex;gap:clamp(8px,3vw,20px);margin-top:24px;flex-wrap:wrap;justify-content:center;
-}
-.prize-chip{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,215,0,.25);
-  border-radius:6px;padding:10px 18px;text-align:center;
-}
-.prize-chip .amt{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,32px);color:var(--gold);display:block;}
-.prize-chip .lbl{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.4);font-weight:300;}
-.scroll-cue{position:relative;z-index:2;margin-top:40px;color:rgba(255,255,255,.3);
-  font-size:22px;animation:bob 2s ease-in-out infinite;}
+.swb-label{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.35);font-weight:300;}
+.swb-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:rgba(255,255,255,.6);}
+.swb-icon{font-size:24px;flex-shrink:0;}
+
+.scroll-cue{position:relative;z-index:2;color:rgba(255,255,255,.25);
+  font-size:20px;animation:bob 2s ease-in-out infinite;margin-top:8px;}
 @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
 
 /* ══ JEFF PANEL ══ */
 #jeff-panel{
-  position:fixed;z-index:9000;
-  bottom:0;left:0;right:0;
-  background:linear-gradient(180deg,rgba(13,13,13,.98),#0d0d0d);
+  position:fixed;z-index:9000;bottom:0;left:0;right:0;
+  background:linear-gradient(180deg,rgba(12,12,12,.98),#0a0a0a);
   border-top:2px solid var(--fire);
-  padding:16px 20px max(20px,env(safe-area-inset-bottom));
-  transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  padding:14px 20px max(18px,env(safe-area-inset-bottom));
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
   box-shadow:0 -8px 40px rgba(255,69,0,.3);
 }
 #jeff-panel.open{transform:translateY(0);}
-.jeff-handle{width:36px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 14px;}
-.jeff-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.jeff-icon{font-size:32px;animation:jeffBob 2s ease-in-out infinite;}
-@keyframes jeffBob{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
-.jeff-title{flex:1;}
-.jeff-title h3{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--fire);}
-.jeff-title p{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.35);margin-top:1px;}
-#jeff-close-btn{background:none;border:none;color:rgba(255,255,255,.35);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1;}
-.jeff-quote{font-size:13px;font-style:italic;color:rgba(255,255,255,.8);
-  line-height:1.65;min-height:52px;margin-bottom:12px;padding-left:12px;
-  border-left:3px solid var(--fire);}
-.jeff-status{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.35);margin-bottom:10px;font-style:normal;font-weight:300;}
-.jeff-wave{display:flex;align-items:center;gap:3px;height:24px;margin-bottom:12px;}
-.jeff-bar{width:4px;border-radius:2px;background:var(--fire);height:4px;transition:height .08s;}
-.jeff-btns{display:flex;gap:8px;}
-.jbtn{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;
-  border:none;border-radius:4px;padding:9px 16px;cursor:pointer;transition:opacity .2s;flex:1;text-align:center;}
-.jbtn-play{background:var(--fire);color:#fff;}
-.jbtn-next{background:rgba(255,255,255,.08);color:var(--cream);border:1px solid rgba(255,255,255,.12);}
-.jbtn-stop{background:rgba(255,69,0,.15);color:var(--ember);border:1px solid rgba(255,69,0,.25);}
-.jbtn:disabled{opacity:.35;cursor:not-allowed;}
+.jeff-handle{width:32px;height:3px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 12px;}
+.jeff-row1{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.jeff-mic{font-size:28px;animation:jeffbob 2s ease-in-out infinite;}
+@keyframes jeffbob{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+.jeff-info{flex:1;}
+.jeff-info h3{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--fire);}
+.jeff-info p{font-size:8px;letter-spacing:3px;color:rgba(255,255,255,.3);}
+#jeff-x{background:none;border:none;color:rgba(255,255,255,.3);font-size:20px;cursor:pointer;padding:4px 8px;}
+.jeff-q{font-size:12px;font-style:italic;color:rgba(255,255,255,.75);line-height:1.6;
+  min-height:48px;margin-bottom:8px;padding-left:10px;border-left:2px solid var(--fire);}
+.jeff-st{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.3);margin-bottom:8px;}
+.jeff-wv{display:flex;align-items:center;gap:2px;height:20px;margin-bottom:10px;}
+.jeff-wv div{width:3px;border-radius:2px;background:var(--fire);height:3px;transition:height .08s;}
+.jeff-ctrls{display:flex;gap:6px;}
+.jb{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;
+  border:none;border-radius:4px;padding:9px 14px;cursor:pointer;flex:1;transition:opacity .15s;}
+.jb:disabled{opacity:.3;cursor:not-allowed;}
+.jb-play{background:var(--fire);color:#fff;}
+.jb-next{background:rgba(255,255,255,.07);color:var(--cream);border:1px solid rgba(255,255,255,.1);}
+.jb-stop{background:rgba(255,69,0,.12);color:var(--ember);border:1px solid rgba(255,69,0,.2);}
 #jeff-fab{
-  position:fixed;bottom:max(20px,env(safe-area-inset-bottom));right:20px;z-index:8999;
-  width:54px;height:54px;border-radius:50%;background:var(--fire);border:none;
-  font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(255,69,0,.5);transition:transform .2s;
+  position:fixed;bottom:max(18px,env(safe-area-inset-bottom));right:18px;z-index:8999;
+  width:50px;height:50px;border-radius:50%;background:var(--fire);border:none;
+  font-size:20px;cursor:pointer;display:none;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px rgba(255,69,0,.55);
 }
-#jeff-fab:active{transform:scale(.93);}
+#jeff-dot{display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--fire);margin-left:4px;opacity:0;vertical-align:middle;
+  animation:dotpulse .5s ease-in-out infinite alternate;}
+@keyframes dotpulse{from{transform:scale(1);}to{transform:scale(1.6);}}
 
 /* ══ NAV ══ */
-.sticky-nav{
+.nav{
   position:sticky;top:0;z-index:500;
-  background:rgba(10,10,10,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,69,0,.2);
-  padding:0 max(16px,env(safe-area-inset-left));
+  background:rgba(8,8,8,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,69,0,.25);
 }
-.nav-scroll{display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0;}
-.nav-scroll::-webkit-scrollbar{display:none;}
-.nav-s50{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;
-  color:var(--fire);padding:8px 14px 8px 4px;white-space:nowrap;
-  border-right:1px solid rgba(255,69,0,.2);margin-right:4px;flex-shrink:0;}
-.nav-btn{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;
-  padding:8px 12px;color:rgba(255,255,255,.4);background:none;border:none;
-  cursor:pointer;white-space:nowrap;transition:color .2s;flex-shrink:0;}
-.nav-btn:active,.nav-btn.active{color:var(--cream);}
+.nav-inner{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;padding:2px 0;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.nav-brand{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;
+  color:var(--fire);padding:10px 14px;white-space:nowrap;flex-shrink:0;
+  border-right:1px solid rgba(255,69,0,.2);}
+.nav-btn{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;
+  padding:10px 11px;color:rgba(255,255,255,.38);background:none;border:none;
+  cursor:pointer;white-space:nowrap;transition:color .15s;flex-shrink:0;}
+.nav-btn.on,.nav-btn:active{color:var(--cream);}
 
 /* ══ SECTIONS ══ */
-.section{padding:clamp(32px,6vw,56px) clamp(16px,4vw,40px);max-width:1000px;margin:0 auto;}
-.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:clamp(20px,4vw,36px);}
-.sec-head h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,6vw,44px);letter-spacing:3px;
-  color:var(--cream);text-shadow:0 0 20px rgba(255,69,0,.3);}
-.sec-icon{font-size:clamp(22px,4vw,30px);}
-.sec-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,69,0,.6),transparent);}
-.sec-tag{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.25);font-weight:300;white-space:nowrap;}
+.sec{padding:clamp(28px,6vw,52px) clamp(14px,4vw,36px);max-width:960px;margin:0 auto;}
+.sec-hd{display:flex;align-items:center;gap:10px;margin-bottom:clamp(18px,4vw,32px);}
+.sec-hd h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,6vw,42px);
+  letter-spacing:3px;color:var(--cream);text-shadow:0 0 16px rgba(255,69,0,.25);}
+.sec-ico{font-size:clamp(20px,4vw,28px);}
+.sec-ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,69,0,.5),transparent);}
+.sec-tag{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.22);font-weight:300;white-space:nowrap;}
 
 /* Jeff quip */
-.quip{
-  background:rgba(255,69,0,.06);border-left:3px solid var(--fire);
-  border-radius:0 6px 6px 0;padding:12px 16px;margin-bottom:24px;
-  cursor:pointer;transition:background .2s;
-}
+.quip{background:rgba(255,69,0,.055);border-left:3px solid var(--fire);
+  border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:20px;
+  cursor:pointer;transition:background .15s;-webkit-tap-highlight-color:transparent;}
 .quip:active{background:rgba(255,69,0,.12);}
-.quip p{font-size:clamp(12px,3vw,14px);font-style:italic;color:rgba(255,255,255,.7);line-height:1.6;font-weight:300;}
+.quip p{font-size:clamp(11px,3vw,13px);font-style:italic;
+  color:rgba(255,255,255,.65);line-height:1.65;font-weight:300;}
 .quip p strong{color:var(--ember);font-style:normal;font-weight:600;}
-.quip-cta{font-size:9px;letter-spacing:3px;color:var(--fire);margin-top:6px;font-weight:600;font-style:normal;}
+.quip-cta{font-size:8px;letter-spacing:3px;color:var(--fire);margin-top:5px;font-weight:600;}
 
-/* ══ PODIUM ══ */
-.podium{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
-.pod-card{
-  display:flex;align-items:center;gap:16px;
-  border-radius:8px;padding:clamp(14px,3vw,20px);cursor:pointer;
-  transition:transform .2s;border:1px solid;position:relative;overflow:hidden;
+/* ══ STANDINGS — POOL WINNER PODIUM ══ */
+/* Big winner card at top */
+.winner-feature{
+  border-radius:8px;padding:clamp(18px,4vw,28px);margin-bottom:12px;
+  background:linear-gradient(135deg,rgba(255,215,0,.1),rgba(255,69,0,.06));
+  border:2px solid rgba(255,215,0,.5);
+  box-shadow:0 0 50px rgba(255,215,0,.15),inset 0 0 30px rgba(255,215,0,.03);
+  cursor:pointer;transition:transform .15s;
 }
-.pod-card:active{transform:scale(.98);}
-.pod-card::before{content:'';position:absolute;inset:0;opacity:.04;
-  background:linear-gradient(135deg,#fff,transparent);}
-.pod-1{background:rgba(255,215,0,.08);border-color:rgba(255,215,0,.4);
-  box-shadow:0 0 30px rgba(255,215,0,.12);}
-.pod-2{background:rgba(192,192,192,.06);border-color:rgba(192,192,192,.3);}
-.pod-3{background:rgba(205,127,50,.06);border-color:rgba(205,127,50,.3);}
-.pod-rank{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,8vw,52px);
-  flex-shrink:0;width:clamp(44px,10vw,60px);text-align:center;line-height:1;}
-.pod-1 .pod-rank{color:var(--gold);}
-.pod-2 .pod-rank{color:var(--silver);}
-.pod-3 .pod-rank{color:var(--bronze);}
-.pod-info{flex:1;min-width:0;}
-.pod-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,32px);letter-spacing:2px;line-height:1;}
-.pod-1 .pod-name{color:var(--gold);}
-.pod-2 .pod-name{color:var(--silver);}
-.pod-3 .pod-name{color:var(--bronze);}
-.pod-tag{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.35);margin-top:2px;font-weight:300;}
-.pod-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
-.pill{font-size:9px;padding:2px 8px;border-radius:20px;letter-spacing:1px;font-weight:400;}
+.winner-feature:active{transform:scale(.99);}
+.wf-top{display:flex;align-items:center;gap:clamp(12px,3vw,20px);}
+.wf-medal{font-size:clamp(44px,10vw,68px);flex-shrink:0;line-height:1;}
+.wf-info{flex:1;min-width:0;}
+.wf-eyebrow{font-size:9px;letter-spacing:4px;color:var(--fire);margin-bottom:4px;}
+.wf-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,64px);
+  color:var(--gold);letter-spacing:3px;line-height:1;
+  text-shadow:0 0 24px rgba(255,215,0,.5);}
+.wf-prize{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,6vw,42px);
+  color:var(--cream);line-height:1;margin-top:2px;}
+.wf-total{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,10vw,64px);
+  color:var(--gold);text-align:right;flex-shrink:0;line-height:1;}
+.wf-total span{display:block;font-size:9px;letter-spacing:2px;
+  color:rgba(255,255,255,.3);font-family:'Oswald',sans-serif;font-weight:300;}
+.wf-pills{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap;}
+.pill{font-size:9px;padding:3px 9px;border-radius:20px;letter-spacing:1px;}
 .pill-w{background:rgba(255,69,0,.2);color:#FF8A65;border:1px solid rgba(255,69,0,.3);}
 .pill-d{background:rgba(27,107,58,.3);color:#69D899;border:1px solid rgba(105,216,153,.2);}
 .pill-f{background:rgba(255,215,0,.15);color:var(--gold);border:1px solid rgba(255,215,0,.2);}
-.pod-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,7vw,48px);
-  flex-shrink:0;text-align:right;line-height:1;}
-.pod-1 .pod-score{color:var(--gold);}
-.pod-2 .pod-score{color:var(--silver);}
-.pod-3 .pod-score{color:var(--bronze);}
-.pod-pts{font-size:10px;color:rgba(255,255,255,.3);font-weight:300;letter-spacing:1px;}
+
+/* 2nd and 3rd */
+.runner-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.runner-card{border-radius:6px;padding:clamp(12px,3vw,18px);cursor:pointer;
+  border:1px solid;transition:transform .15s;}
+.runner-card:active{transform:scale(.97);}
+.rc-2{background:rgba(192,192,192,.06);border-color:rgba(192,192,192,.25);}
+.rc-3{background:rgba(205,127,50,.06);border-color:rgba(205,127,50,.25);}
+.rc-medal{font-size:clamp(26px,6vw,36px);margin-bottom:4px;display:block;}
+.rc-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,4.5vw,26px);letter-spacing:2px;line-height:1;}
+.rc-2 .rc-name{color:var(--silver);}
+.rc-3 .rc-name{color:var(--bronze);}
+.rc-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,7vw,40px);margin-top:4px;}
+.rc-2 .rc-score{color:var(--silver);}
+.rc-3 .rc-score{color:var(--bronze);}
+.rc-pts{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:1px;}
 
 /* ══ LEADERBOARD ══ */
-.sort-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
-.sort-btn{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;
-  padding:6px 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
-  color:rgba(255,255,255,.4);border-radius:4px;cursor:pointer;transition:all .15s;}
-.sort-btn.on,.sort-btn:active{background:rgba(255,69,0,.2);border-color:var(--fire);color:var(--cream);}
+.sort-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px;}
+.sort-btn{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;
+  padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  color:rgba(255,255,255,.38);border-radius:4px;cursor:pointer;transition:all .12s;}
+.sort-btn.on{background:rgba(255,69,0,.18);border-color:var(--fire);color:var(--cream);}
 .lb{width:100%;border-collapse:collapse;}
-.lb thead tr{border-bottom:1px solid rgba(255,69,0,.3);}
-.lb th{font-size:9px;letter-spacing:2px;color:rgba(255,69,0,.7);padding:10px 12px;text-align:left;font-weight:600;}
-.lb th:first-child{width:44px;text-align:center;}
-.lb td{padding:12px;border-bottom:1px solid rgba(255,255,255,.05);font-size:14px;vertical-align:middle;}
-.lb td:first-child{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:20px;color:rgba(255,255,255,.2);}
+.lb thead tr{border-bottom:1px solid rgba(255,69,0,.25);}
+.lb th{font-size:8px;letter-spacing:2px;color:rgba(255,69,0,.65);
+  padding:9px 10px;text-align:left;font-weight:600;}
+.lb th:first-child{width:38px;text-align:center;}
+.lb td{padding:11px 10px;border-bottom:1px solid rgba(255,255,255,.05);
+  font-size:13px;vertical-align:middle;}
+.lb td:first-child{text-align:center;font-family:'Bebas Neue',sans-serif;
+  font-size:18px;color:rgba(255,255,255,.18);}
 .lb tr:nth-child(1) td:first-child{color:var(--gold);}
 .lb tr:nth-child(2) td:first-child{color:var(--silver);}
 .lb tr:nth-child(3) td:first-child{color:var(--bronze);}
-.lb tbody tr{cursor:pointer;transition:background .15s;}
+.lb tbody tr{cursor:pointer;transition:background .12s;}
 .lb tbody tr:active{background:rgba(255,69,0,.07);}
-.lb-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;}
-.lb-sub{font-size:9px;letter-spacing:2px;margin-top:1px;font-weight:300;}
-.lb-total{font-family:'Bebas Neue',sans-serif;font-size:24px;}
-.bar-wrap{display:flex;align-items:center;gap:6px;}
-.bar{height:5px;border-radius:3px;min-width:2px;}
+.lb-nm{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;}
+.lb-sub{font-size:8px;letter-spacing:2px;margin-top:1px;font-weight:300;}
+.lb-tot{font-family:'Bebas Neue',sans-serif;font-size:22px;}
+.bw{display:flex;align-items:center;gap:5px;}
+.bar{height:4px;border-radius:2px;min-width:2px;}
 .bar-w{background:linear-gradient(90deg,#FF4500,#FF8A65);}
 .bar-d{background:linear-gradient(90deg,#1B6B3A,#52C77A);}
 .bar-f{background:linear-gradient(90deg,#9B6B00,#FFD700);}
-.bnum{font-size:11px;color:rgba(255,255,255,.45);min-width:20px;}
-.hide-sm{} /* will be hidden on mobile */
+.bn{font-size:10px;color:rgba(255,255,255,.4);min-width:18px;}
 
 /* ══ WEEKLY ══ */
 .champ-card{
-  display:flex;align-items:center;gap:clamp(12px,3vw,24px);
-  background:rgba(255,69,0,.08);border:1px solid rgba(255,69,0,.3);
-  border-radius:8px;padding:clamp(16px,4vw,24px);margin-bottom:24px;
+  display:flex;align-items:center;gap:clamp(12px,3vw,22px);
+  background:rgba(255,69,0,.07);border:1px solid rgba(255,69,0,.28);
+  border-radius:8px;padding:clamp(14px,3vw,22px);margin-bottom:20px;
 }
-.champ-icon{font-size:clamp(40px,8vw,60px);flex-shrink:0;}
-.champ-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,7vw,52px);line-height:1;color:var(--cream);}
-.champ-lbl{font-size:9px;letter-spacing:4px;color:var(--fire);margin-bottom:2px;}
-.champ-sub{font-size:clamp(11px,2.5vw,13px);color:rgba(255,255,255,.45);margin-top:4px;font-weight:300;}
-.wbar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.wbar-name{width:clamp(64px,15vw,80px);font-size:12px;font-weight:600;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.wbar-track{flex:1;height:24px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden;display:flex;}
+.champ-ico{font-size:clamp(38px,8vw,56px);flex-shrink:0;}
+.champ-nm{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,7vw,50px);line-height:1;}
+.champ-lbl{font-size:8px;letter-spacing:4px;color:var(--fire);margin-bottom:2px;}
+.champ-sub{font-size:clamp(10px,2.5vw,12px);color:rgba(255,255,255,.4);margin-top:3px;font-weight:300;}
+.wbar-row{display:flex;align-items:center;gap:7px;margin-bottom:7px;}
+.wbar-nm{width:clamp(58px,14vw,76px);font-size:11px;font-weight:600;flex-shrink:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.wbar-track{flex:1;height:22px;background:rgba(255,255,255,.04);border-radius:3px;overflow:hidden;display:flex;}
 .wbar-seg{height:100%;}
-.seg-s{background:rgba(255,69,0,.65);}
-.seg-e{background:rgba(255,140,0,.8);}
-.seg-i{background:rgba(105,216,153,.6);}
-.seg-id{background:rgba(161,140,209,.7);}
-.wbar-num{font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,.5);width:28px;text-align:right;flex-shrink:0;}
+.seg-s{background:rgba(255,69,0,.6);}
+.seg-e{background:rgba(255,140,0,.75);}
+.seg-i{background:rgba(105,216,153,.55);}
+.seg-id{background:rgba(161,140,209,.65);}
+.wbar-num{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,.45);
+  width:26px;text-align:right;flex-shrink:0;}
 
-/* ══ LINE CHART ══ */
+/* ══ CHART ══ */
 .chart-box{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
-  border-radius:8px;padding:16px;overflow-x:auto;margin-bottom:24px;}
-.chart-label{font-size:9px;letter-spacing:3px;color:var(--ember);margin-bottom:12px;}
-.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
-.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;cursor:pointer;
-  opacity:.6;transition:opacity .15s;font-weight:400;}
-.leg-item.on{opacity:1;}
-.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  border-radius:8px;padding:14px;overflow-x:auto;margin-bottom:20px;}
+.chart-lbl{font-size:8px;letter-spacing:3px;color:var(--ember);margin-bottom:10px;}
+.chart-leg{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.leg-i{display:flex;align-items:center;gap:4px;font-size:9px;cursor:pointer;
+  opacity:.55;transition:opacity .12s;}
+.leg-i.on{opacity:1;}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 
 /* ══ CAST ══ */
-.cast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(80px,20vw,110px),1fr));
-  gap:clamp(6px,2vw,10px);margin-bottom:24px;}
-.cast-card{background:var(--card);border:1px solid rgba(255,255,255,.07);
-  border-radius:6px;padding:10px 6px;text-align:center;cursor:pointer;
-  transition:transform .15s;position:relative;overflow:hidden;}
-.cast-card:active{transform:scale(.96);}
-.cast-card.elim{opacity:.38;filter:grayscale(.6);}
-.cast-card.elim::after{content:'✝';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-55%);font-size:36px;color:rgba(255,69,0,.35);pointer-events:none;}
-.cast-card.ftc{border-color:rgba(105,216,153,.35);background:rgba(27,67,50,.2);}
-.cast-card.winner{border-color:rgba(255,215,0,.5);background:rgba(255,215,0,.07);
-  animation:glow 3s ease-in-out infinite;}
-.cast-emoji{font-size:clamp(20px,5vw,28px);display:block;margin-bottom:4px;}
-.cast-cname{font-size:clamp(8px,2vw,10px);font-weight:600;line-height:1.3;letter-spacing:.3px;}
-.cast-card.winner .cast-cname{color:var(--gold);}
-.cast-card.ftc .cast-cname{color:#69D899;}
-.cast-badge{font-size:8px;margin-top:3px;display:inline-block;border-radius:20px;padding:1px 6px;}
-.badge-win{background:rgba(255,215,0,.2);color:var(--gold);}
-.badge-ftc{background:rgba(105,216,153,.15);color:#69D899;}
-.badge-out{color:rgba(255,255,255,.25);}
+.cast-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(76px,19vw,105px),1fr));
+  gap:clamp(5px,1.5vw,8px);margin-bottom:20px;
+}
+.cc{background:var(--card);border:1px solid rgba(255,255,255,.06);
+  border-radius:6px;padding:9px 5px;text-align:center;
+  position:relative;overflow:hidden;transition:transform .12s;cursor:pointer;}
+.cc:active{transform:scale(.95);}
+.cc.elim{opacity:.32;filter:grayscale(.7);}
+.cc.elim::after{content:'✝';position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-55%);font-size:32px;color:rgba(255,69,0,.3);pointer-events:none;}
+.cc.ftc{border-color:rgba(105,216,153,.3);background:rgba(27,67,50,.18);}
+.cc.winner{border-color:rgba(255,215,0,.55);background:rgba(255,215,0,.07);
+  animation:poolWinnerGlow 3s ease-in-out infinite;}
+.cc-em{font-size:clamp(18px,4.5vw,26px);display:block;margin-bottom:3px;}
+.cc-nm{font-size:clamp(7px,1.8vw,9px);font-weight:600;line-height:1.3;letter-spacing:.2px;}
+.cc.winner .cc-nm{color:var(--gold);}
+.cc.ftc .cc-nm{color:#69D899;}
+.cc-badge{font-size:7px;margin-top:2px;display:inline-block;border-radius:20px;padding:1px 5px;}
+.b-win{background:rgba(255,215,0,.18);color:var(--gold);}
+.b-ftc{background:rgba(105,216,153,.12);color:#69D899;}
+.b-out{color:rgba(255,255,255,.22);}
 
 /* ══ DRAFT ══ */
-.draft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(140px,40vw,200px),1fr));gap:8px;margin-bottom:24px;}
-.draft-card{background:var(--card);border:1px solid rgba(255,255,255,.07);
-  border-radius:6px;padding:14px;cursor:pointer;transition:transform .15s;}
-.draft-card:active{transform:scale(.97);}
-.draft-card.best{border-color:rgba(255,215,0,.3);background:rgba(255,215,0,.04);}
-.draft-pname{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;margin-bottom:8px;}
-.draft-pick{display:flex;align-items:center;gap:7px;font-size:11px;
-  color:rgba(255,255,255,.55);margin-bottom:4px;font-weight:300;}
-.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.draft-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(135px,38vw,185px),1fr));
+  gap:7px;margin-bottom:20px;}
+.dc{background:var(--card);border:1px solid rgba(255,255,255,.07);
+  border-radius:6px;padding:12px;cursor:pointer;transition:transform .12s;}
+.dc:active{transform:scale(.97);}
+.dc.best{border-color:rgba(255,215,0,.28);background:rgba(255,215,0,.04);}
+.dc-nm{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;margin-bottom:7px;}
+.dc-pick{display:flex;align-items:center;gap:6px;font-size:10px;
+  color:rgba(255,255,255,.5);margin-bottom:3px;font-weight:300;}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .dot-in{background:#69D899;box-shadow:0 0 4px #69D899;}
 .dot-out{background:var(--fire);}
-.draft-pts{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);margin-top:8px;}
-.draft-pts span{font-size:10px;color:rgba(255,255,255,.3);font-weight:300;letter-spacing:1px;}
+.dc-pts{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);margin-top:7px;}
+.dc-pts span{font-size:9px;color:rgba(255,255,255,.28);font-weight:300;letter-spacing:1px;}
 
 /* ══ FINALE ══ */
-.finale-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(140px,40vw,210px),1fr));gap:8px;margin-bottom:24px;}
-.fin-card{background:var(--card);border:1px solid rgba(255,215,0,.1);border-radius:6px;padding:14px;}
-.fin-card.best{border-color:rgba(255,215,0,.3);}
-.fin-pname{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;margin-bottom:10px;}
-.fin-row{display:flex;justify-content:space-between;align-items:center;
-  font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);}
-.fin-lbl{color:rgba(255,255,255,.35);font-weight:300;}
-.fin-val{font-size:12px;font-weight:600;}
-.fin-pts{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--gold);}
-.fin-total{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
-.fin-tlbl{font-size:9px;letter-spacing:2px;color:var(--ember);font-weight:300;}
-.fin-tnum{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);}
+.finale-grid{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(135px,38vw,195px),1fr));
+  gap:7px;margin-bottom:20px;}
+.fc{background:var(--card);border:1px solid rgba(255,215,0,.09);border-radius:6px;padding:12px;}
+.fc.best{border-color:rgba(255,215,0,.28);}
+.fc-nm{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;margin-bottom:8px;}
+.fc-row{display:flex;justify-content:space-between;align-items:center;
+  font-size:10px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.fc-lbl{color:rgba(255,255,255,.32);font-weight:300;}
+.fc-val{font-size:11px;font-weight:600;}
+.fc-tot{display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.fc-tlbl{font-size:8px;letter-spacing:2px;color:var(--ember);font-weight:300;}
+.fc-tnum{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);}
 
 /* ══ MODAL ══ */
-#modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:700;
+#modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:700;
   display:none;align-items:flex-end;justify-content:center;}
 #modal-bg.open{display:flex;}
 #modal-box{
-  background:var(--card);border:1px solid rgba(255,69,0,.25);
-  border-radius:16px 16px 0 0;padding:24px 20px max(24px,env(safe-area-inset-bottom));
-  width:100%;max-width:540px;max-height:88dvh;overflow-y:auto;position:relative;
+  background:var(--card);border:1px solid rgba(255,69,0,.22);
+  border-radius:14px 14px 0 0;
+  padding:20px 18px max(22px,env(safe-area-inset-bottom));
+  width:100%;max-width:520px;max-height:88dvh;overflow-y:auto;position:relative;
 }
-.modal-handle{width:36px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 20px;}
-#modal-close-btn{position:absolute;top:20px;right:16px;background:none;border:none;
-  color:rgba(255,255,255,.35);font-size:20px;cursor:pointer;padding:4px;}
-
-/* ══ FOOTER ══ */
-footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-area-inset-bottom));
-  border-top:1px solid rgba(255,69,0,.15);}
-.footer-fire{font-size:28px;letter-spacing:12px;margin-bottom:12px;display:block;}
-.footer-snuff{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,5vw,32px);
-  color:var(--fire);letter-spacing:4px;text-shadow:0 0 20px rgba(255,69,0,.4);}
-.footer-meta{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.2);margin-top:12px;font-weight:300;}
-
-
-/* ══ TAP-TO-START OVERLAY — REQUIRED FOR MOBILE AUDIO ══ */
-#enter-screen{position:fixed;inset:0;z-index:12000;background:radial-gradient(ellipse at 50% 110%,rgba(255,69,0,.35) 0%,transparent 55%),#0d0d0d;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;}
-.enter-card{border:1px solid rgba(255,215,0,.45);background:linear-gradient(135deg,rgba(255,215,0,.08),rgba(255,69,0,.08));border-radius:12px;padding:28px 22px;max-width:420px;width:100%;box-shadow:0 0 70px rgba(255,69,0,.22);}
-.enter-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,14vw,78px);letter-spacing:3px;line-height:.9;background:linear-gradient(180deg,#fff8e1,#FFD700,#FF4500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 24px rgba(255,140,0,.5));}
-.enter-sub{font-size:13px;letter-spacing:2px;color:rgba(255,255,255,.6);margin:14px 0 20px;font-weight:300;line-height:1.5;}
-.enter-btn{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;border:none;border-radius:6px;padding:14px 22px;background:var(--fire);color:#fff;cursor:pointer;box-shadow:0 8px 30px rgba(255,69,0,.45);width:100%;}
-.enter-note{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.32);margin-top:12px;font-weight:300;}
-#enter-screen.hide{display:none;}
-
-/* ══ SCROLL REVEAL ══ */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
-.reveal.in{opacity:1;transform:none;}
+.m-handle{width:32px;height:3px;background:rgba(255,255,255,.12);border-radius:2px;margin:0 auto 18px;}
+#modal-x{position:absolute;top:18px;right:14px;background:none;border:none;
+  color:rgba(255,255,255,.3);font-size:18px;cursor:pointer;padding:4px;}
 
 /* ══ TABS ══ */
-.tab-row{display:flex;gap:4px;margin-bottom:16px;}
-.tab-btn{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;
-  padding:6px 12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
-  color:rgba(255,255,255,.4);border-radius:4px;cursor:pointer;}
-.tab-btn.on{background:rgba(255,69,0,.2);border-color:var(--fire);color:var(--cream);}
+.tab-row{display:flex;gap:4px;margin-bottom:14px;}
+.tab-btn{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1px;
+  padding:5px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+  color:rgba(255,255,255,.38);border-radius:4px;cursor:pointer;}
+.tab-btn.on{background:rgba(255,69,0,.18);border-color:var(--fire);color:var(--cream);}
 .tab-pane{display:none;}
 .tab-pane.on{display:block;}
 
+/* ══ FOOTER ══ */
+footer{text-align:center;padding:clamp(36px,7vw,56px) 20px max(28px,env(safe-area-inset-bottom));
+  border-top:1px solid rgba(255,69,0,.12);}
+.footer-torches{font-size:24px;letter-spacing:14px;margin-bottom:10px;display:block;}
+.footer-snuff{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,5vw,30px);
+  color:var(--fire);letter-spacing:5px;text-shadow:0 0 16px rgba(255,69,0,.4);}
+.footer-meta{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.18);margin-top:10px;font-weight:300;}
+
+/* ══ REVEAL ══ */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.in{opacity:1;transform:none;}
+
 @media(min-width:640px){
-  .hide-sm{display:table-cell;}
-  .podium{flex-direction:row;align-items:flex-end;}
-  .pod-card{flex-direction:column;text-align:center;flex:1;}
-  .pod-card:nth-child(1){order:2;padding-bottom:24px;}
-  .pod-card:nth-child(2){order:1;}
-  .pod-card:nth-child(3){order:3;}
-  .pod-score{text-align:center;}
-  .pod-pills{justify-content:center;}
-  #jeff-panel{left:auto;right:24px;bottom:24px;width:320px;border-radius:16px;border:2px solid var(--fire);border-top:2px solid var(--fire);}
-  #jeff-panel.open{transform:translateY(0);}
+  .runner-cards{grid-template-columns:1fr 1fr;}
+  #jeff-panel{left:auto;right:22px;bottom:22px;width:310px;
+    border-radius:14px;border:2px solid var(--fire);}
   #modal-bg{align-items:center;}
-  #modal-box{border-radius:16px;max-height:90dvh;}
-  .modal-handle{display:none;}
+  #modal-box{border-radius:14px;max-height:90dvh;}
+  .m-handle{display:none;}
 }
 </style>
 </head>
 <body>
 
+<!-- ENTER SCREEN -->
 <div id="enter-screen">
-  <div class="enter-card">
-    <div class="enter-title">SURVIVOR 50</div>
-    <div class="enter-sub">The votes are in. Tap below to start the finale reveal with Jeff’s voice.</div>
-    <button class="enter-btn" onclick="enterIsland()">🔥 ENTER THE ISLAND</button>
-    <div class="enter-note">A TAP IS NEEDED SO MOBILE BROWSERS ALLOW AUDIO</div>
+  <div class="enter-inner">
+    <div class="enter-logo">SURVIVOR</div>
+    <div class="enter-season">SEASON &nbsp; 50 &nbsp; · &nbsp; POOL &nbsp; RESULTS</div>
+    <div class="enter-torch-row">🔥🔥🔥</div>
+    <div class="enter-tagline">The votes have been tallied.<br>Tap to find out who won the pool.</div>
+    <button class="enter-btn" onclick="enterIsland()">🔥 REVEAL THE WINNER</button>
+    <div class="enter-note">TAP REQUIRED FOR JEFF'S VOICE ON MOBILE</div>
   </div>
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero-top">
+  <div class="hero-bg"></div>
   <div class="hero-torches">
-    <div class="torch-flame left">🔥</div>
-    <div class="torch-flame right">🔥</div>
+    <div class="torch-l">🔥</div>
+    <div class="torch-r">🔥</div>
   </div>
-  <div class="survivor-wordmark">SURVIVOR</div>
-  <div class="season-50-badge">SEASON&nbsp;&nbsp;50&nbsp;&nbsp;·&nbsp;&nbsp;POOL&nbsp;&nbsp;RESULTS</div>
-  <div class="fire-line"></div>
-  <div class="winner-box">
-    <div class="winner-label">👑 SOLE SURVIVOR — SEASON 50</div>
-    <div class="winner-name">AUBRY BRACCO</div>
-    <div class="winner-sub">James wins the $200 Season Prize</div>
+  <div class="s-wordmark">SURVIVOR</div>
+  <div class="s-season">SEASON &nbsp; 50 &nbsp; · &nbsp; POOL &nbsp; RESULTS</div>
+  <div class="fire-bar"></div>
+
+  <!-- POOL WINNER — THE MAIN EVENT -->
+  <div class="pool-winner-wrap">
+    <div class="pool-winner-card" onclick="openModal('James')">
+      <div class="pool-winner-eyebrow">🏆 POOL CHAMPION · $200 WINNER</div>
+      <div class="pool-winner-amount">$200</div>
+      <div class="pool-winner-name">JAMES</div>
+      <div class="pool-winner-sub">141 POINTS · SEASON CHAMPION</div>
+      <div class="pool-winner-stats">
+        <div class="pw-stat"><span class="pw-stat-num">52</span><span class="pw-stat-lbl">WEEKLY</span></div>
+        <div class="pw-stat"><span class="pw-stat-num">60</span><span class="pw-stat-lbl">DRAFT</span></div>
+        <div class="pw-stat"><span class="pw-stat-num">15</span><span class="pw-stat-lbl">FINALE</span></div>
+        <div class="pw-stat"><span class="pw-stat-num">141</span><span class="pw-stat-lbl">TOTAL</span></div>
+      </div>
+    </div>
   </div>
-  <div class="prize-row">
-    <div class="prize-chip"><span class="amt">$200</span><span class="lbl">James · Season 🏆</span></div>
-    <div class="prize-chip"><span class="amt">$40</span><span class="lbl">Kristin · Weekly 🔥</span></div>
-    <div class="prize-chip"><span class="amt">$240</span><span class="lbl">Total Pool</span></div>
+
+  <!-- Survivor winner is secondary -->
+  <div class="survivor-winner-badge">
+    <div class="swb-icon">🌴</div>
+    <div>
+      <div class="swb-label">SOLE SURVIVOR — SEASON 50</div>
+      <div class="swb-name">AUBRY BRACCO</div>
+    </div>
   </div>
+
+  <div class="prize-row" style="position:relative;z-index:2;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;">
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,69,0,.25);border-radius:5px;padding:8px 14px;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--fire);">$40</div>
+      <div style="font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.3);">KRISTIN · WEEKLY</div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,69,0,.25);border-radius:5px;padding:8px 14px;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--fire);">$240</div>
+      <div style="font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.3);">TOTAL POOL</div>
+    </div>
+  </div>
+
   <div class="scroll-cue">↓</div>
 </section>
 
 <!-- JEFF PANEL -->
 <div id="jeff-panel">
   <div class="jeff-handle"></div>
-  <div class="jeff-header">
-    <div class="jeff-icon">🎙️</div>
-    <div class="jeff-title">
-      <h3>JEFF PROBST <span id="jeff-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--fire);margin-left:4px;opacity:0;vertical-align:middle;animation:pulse .6s ease-in-out infinite alternate;"></span></h3>
+  <div class="jeff-row1">
+    <div class="jeff-mic">🎙️</div>
+    <div class="jeff-info">
+      <h3>JEFF PROBST <span id="jeff-dot"></span></h3>
       <p>🔥 SURVIVOR 50 HOST</p>
     </div>
-    <button id="jeff-close-btn" onclick="jeffClose()">✕</button>
+    <button id="jeff-x" onclick="jeffClose()">✕</button>
   </div>
-  <div class="jeff-quote" id="jeff-quote">Tap any Jeff quote on the page — or hit Play below.</div>
-  <div class="jeff-status" id="jeff-status">READY</div>
-  <div class="jeff-wave" id="jeff-wave"></div>
-  <div class="jeff-btns">
-    <button class="jbtn jbtn-play" id="jeff-play" onclick="jeffPlay()">▶ PLAY</button>
-    <button class="jbtn jbtn-next" onclick="jeffNext()">NEXT ›</button>
-    <button class="jbtn jbtn-stop" onclick="jeffStop()">■ STOP</button>
+  <div class="jeff-q" id="jeff-q">Tap any Jeff quote — or hit Play.</div>
+  <div class="jeff-st" id="jeff-st">READY</div>
+  <div class="jeff-wv" id="jeff-wv"></div>
+  <div class="jeff-ctrls">
+    <button class="jb jb-play" id="jeff-play" onclick="jeffPlay()">▶ PLAY</button>
+    <button class="jb jb-next" onclick="jeffNext()">NEXT ›</button>
+    <button class="jb jb-stop" onclick="jeffStop()">■ STOP</button>
   </div>
 </div>
-<button id="jeff-fab" onclick="jeffOpen()" style="display:none;">🎙️</button>
+<button id="jeff-fab" onclick="jeffOpen()">🎙️</button>
 
 <!-- NAV -->
-<nav class="sticky-nav">
-  <div class="nav-scroll">
-    <div class="nav-s50">🔥 S50</div>
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">🔥 S50</div>
     <button class="nav-btn" onclick="goTo('#standings')">🏆 Standings</button>
     <button class="nav-btn" onclick="goTo('#weekly')">🔥 Weekly</button>
     <button class="nav-btn" onclick="goTo('#arc')">📈 Arc</button>
@@ -452,18 +548,50 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
 </nav>
 
 <!-- STANDINGS -->
-<section class="section reveal" id="standings">
-  <div class="sec-head">
-    <span class="sec-icon">🏆</span>
-    <h2>Standings</h2>
-    <div class="sec-line"></div>
-    <span class="sec-tag">$200 PRIZE</span>
-  </div>
+<section class="sec reveal" id="standings">
+  <div class="sec-hd"><span class="sec-ico">🏆</span><h2>Pool Standings</h2><div class="sec-ln"></div><span class="sec-tag">$200 PRIZE</span></div>
   <div class="quip" onclick="jeffSay(Q.standings)">
-    <p><strong>Jeff:</strong> "After 17 brutal episodes, one pool player separated themselves. James randomly drew Aubry Bracco — and she went on to win the whole season. 141 points. That is how the game works."</p>
+    <p><strong>Jeff:</strong> "James randomly drew Aubry Bracco — and she won the whole season. 141 points. The pool champion is James. The money is his."</p>
     <div class="quip-cta">▶ TAP TO HEAR JEFF</div>
   </div>
-  <div class="podium" id="podium"></div>
+
+  <!-- Winner feature card -->
+  <div class="winner-feature" onclick="openModal('James')">
+    <div class="wf-top">
+      <div class="wf-medal">🥇</div>
+      <div class="wf-info">
+        <div class="wf-eyebrow">👑 POOL CHAMPION · $200 WINNER</div>
+        <div class="wf-name">JAMES</div>
+        <div class="wf-prize">Takes home $200</div>
+      </div>
+      <div>
+        <div class="wf-total">141<span>TOTAL PTS</span></div>
+      </div>
+    </div>
+    <div class="wf-pills">
+      <span class="pill pill-w">Weekly 52</span>
+      <span class="pill pill-d">Draft 60</span>
+      <span class="pill pill-f">Finale 15</span>
+      <span class="pill pill-d">Drafted Aubry ✓</span>
+    </div>
+  </div>
+
+  <!-- 2nd and 3rd -->
+  <div class="runner-cards">
+    <div class="runner-card rc-2" onclick="openModal('Aaron')">
+      <span class="rc-medal">🥈</span>
+      <div class="rc-name">Aaron</div>
+      <div class="rc-score">131</div>
+      <div class="rc-pts">pts</div>
+    </div>
+    <div class="runner-card rc-3" onclick="openModal('Taryn')">
+      <span class="rc-medal">🥉</span>
+      <div class="rc-name">Taryn</div>
+      <div class="rc-score">130</div>
+      <div class="rc-pts">pts</div>
+    </div>
+  </div>
+
   <div class="sort-row">
     <button class="sort-btn on" onclick="sortLB('total',this)">Total ↓</button>
     <button class="sort-btn" onclick="sortLB('weekly',this)">Weekly</button>
@@ -472,52 +600,39 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
   </div>
   <div style="overflow-x:auto;">
     <table class="lb">
-      <thead><tr>
-        <th>#</th><th>Player</th>
-        <th>Weekly</th><th>Draft</th>
-        <th class="hide-sm" style="display:none;">EP6</th>
-        <th class="hide-sm" style="display:none;">Wild</th>
-        <th>Finale</th><th>Total</th>
-      </tr></thead>
+      <thead><tr><th>#</th><th>Player</th><th>Weekly</th><th>Draft</th><th>Finale</th><th>Total</th></tr></thead>
       <tbody id="lb-body"></tbody>
     </table>
   </div>
 </section>
 
 <!-- WEEKLY -->
-<section class="section reveal" id="weekly">
-  <div class="sec-head">
-    <span class="sec-icon">🔥</span>
-    <h2>Weekly Prize</h2>
-    <div class="sec-line"></div>
-    <span class="sec-tag">$40</span>
-  </div>
+<section class="sec reveal" id="weekly">
+  <div class="sec-hd"><span class="sec-ico">🔥</span><h2>Weekly Prize</h2><div class="sec-ln"></div><span class="sec-tag">$40</span></div>
   <div class="quip" onclick="jeffSay(Q.weekly)">
-    <p><strong>Jeff:</strong> "Kristin. 26 elimination points. Nobody else came close. Week after week, she called the boot. That is not luck — that is Survivor instincts. The forty dollars is hers."</p>
+    <p><strong>Jeff:</strong> "Kristin. 26 elimination points. Nobody else came close. The forty dollars is hers."</p>
     <div class="quip-cta">▶ TAP TO HEAR JEFF</div>
   </div>
   <div class="champ-card">
-    <div class="champ-icon">🔥</div>
+    <div class="champ-ico">🔥</div>
     <div>
-      <div class="champ-lbl">WEEKLY CHAMPION</div>
-      <div class="champ-name">Kristin</div>
-      <div class="champ-sub">62 weekly pts · 26 elim points (highest in pool) · $40</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
-        <span class="pill pill-w">Safe 17</span>
-        <span class="pill pill-w">Elim 26 👑</span>
-        <span class="pill pill-w">Imm 9</span>
-        <span class="pill pill-w">Idol 10</span>
+      <div class="champ-lbl">WEEKLY CHAMPION · $40</div>
+      <div class="champ-nm">Kristin</div>
+      <div class="champ-sub">62 pts · 26 elim points — highest in pool</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;">
+        <span class="pill pill-w">Safe 17</span><span class="pill pill-w">Elim 26 👑</span>
+        <span class="pill pill-w">Imm 9</span><span class="pill pill-w">Idol 10</span>
       </div>
     </div>
   </div>
   <div class="tab-row">
     <button class="tab-btn on" onclick="switchTab('bars')">Breakdown</button>
-    <button class="tab-btn" onclick="switchTab('table')">Table</button>
+    <button class="tab-btn" onclick="switchTab('wtable')">Table</button>
   </div>
   <div class="tab-pane on" id="tab-bars">
-    <div class="chart-box"><div class="chart-label">SAFE · ELIM · IMMUNITY · IDOL</div><div id="wbars"></div></div>
+    <div class="chart-box"><div class="chart-lbl">SAFE · ELIM · IMMUNITY · IDOL</div><div id="wbars"></div></div>
   </div>
-  <div class="tab-pane" id="tab-table">
+  <div class="tab-pane" id="tab-wtable">
     <div style="overflow-x:auto;">
       <table class="lb"><thead><tr><th>#</th><th>Player</th><th>Safe</th><th>Elim</th><th>Imm</th><th>Idol</th><th>Total</th></tr></thead>
       <tbody id="wtbody"></tbody></table>
@@ -526,60 +641,42 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
 </section>
 
 <!-- ARC -->
-<section class="section reveal" id="arc">
-  <div class="sec-head">
-    <span class="sec-icon">📈</span>
-    <h2>Season Arc</h2>
-    <div class="sec-line"></div>
-    <span class="sec-tag">WEEKLY CUMULATIVE</span>
-  </div>
+<section class="sec reveal" id="arc">
+  <div class="sec-hd"><span class="sec-ico">📈</span><h2>Season Arc</h2><div class="sec-ln"></div><span class="sec-tag">WEEKLY CUMULATIVE</span></div>
   <div class="quip" onclick="jeffSay(Q.arc)">
-    <p><strong>Jeff:</strong> "Taryn led most of the season. Kristin surged. James quietly climbed. Then the finale happened — and everything changed. You are never out of it until the votes are read."</p>
+    <p><strong>Jeff:</strong> "Taryn led most of the season. Kristin surged. James quietly climbed. Then the finale changed everything. You are never out of it."</p>
     <div class="quip-cta">▶ TAP TO HEAR JEFF</div>
   </div>
   <div class="chart-box">
-    <div class="chart-label">EPISODE BY EPISODE — TAP NAMES TO TOGGLE</div>
-    <div style="overflow-x:auto;"><svg id="line-svg" height="260" style="display:block;min-width:360px;width:100%;"></svg></div>
-    <div class="chart-legend" id="chart-leg"></div>
+    <div class="chart-lbl">EPISODE BY EPISODE — TAP NAMES TO TOGGLE</div>
+    <div style="overflow-x:auto;"><svg id="line-svg" height="240" style="display:block;min-width:340px;width:100%;"></svg></div>
+    <div class="chart-leg" id="chart-leg"></div>
   </div>
 </section>
 
 <!-- CAST -->
-<section class="section reveal" id="cast">
-  <div class="sec-head">
-    <span class="sec-icon">🌴</span>
-    <h2>Castaways</h2>
-    <div class="sec-line"></div>
-    <span class="sec-tag" style="color:var(--gold);">AUBRY WINS 👑</span>
-  </div>
+<section class="sec reveal" id="cast">
+  <div class="sec-hd"><span class="sec-ico">🌴</span><h2>Castaways</h2><div class="sec-ln"></div><span class="sec-tag" style="color:var(--gold)">AUBRY WINS 👑</span></div>
   <div class="quip" onclick="jeffSay(Q.cast)">
-    <p><strong>Jeff:</strong> "Aubry Bracco. After multiple previous seasons, she came back for Season 50 and did what she has always been capable of. She won. Jonathan Young and Joe Hunter fought hard — but only one person wins. The tribe has spoken."</p>
+    <p><strong>Jeff:</strong> "Aubry Bracco came back for Season 50 and won. Jonathan Young and Joe Hunter fought hard to get to that Final Tribal — but only one person wins. The tribe has spoken."</p>
     <div class="quip-cta">▶ TAP TO HEAR JEFF</div>
   </div>
   <div class="cast-grid" id="cast-grid"></div>
 </section>
 
 <!-- DRAFT -->
-<section class="section reveal" id="draft">
-  <div class="sec-head">
-    <span class="sec-icon">📋</span>
-    <h2>Draft</h2>
-    <div class="sec-line"></div>
-  </div>
+<section class="sec reveal" id="draft">
+  <div class="sec-hd"><span class="sec-ico">📋</span><h2>Draft Results</h2><div class="sec-ln"></div></div>
   <div class="quip" onclick="jeffSay(Q.draft)">
-    <p><strong>Jeff:</strong> "The draft was completely random — nobody chose their castaways. James randomly landed Aubry Bracco, who went on to win. 60 draft points. Kristin randomly drew Mike White and Kyle Fraser for eight. Sometimes the island is not on your side."</p>
+    <p><strong>Jeff:</strong> "The draft was random. James randomly landed Aubry — 60 draft points. Kristin drew Mike White and Kyle Fraser for eight. That is Survivor."</p>
     <div class="quip-cta">▶ TAP TO HEAR JEFF</div>
   </div>
   <div class="draft-grid" id="draft-grid"></div>
 </section>
 
 <!-- FINALE -->
-<section class="section reveal" id="finale">
-  <div class="sec-head">
-    <span class="sec-icon">🎬</span>
-    <h2>Finale Picks</h2>
-    <div class="sec-line"></div>
-  </div>
+<section class="sec reveal" id="finale">
+  <div class="sec-hd"><span class="sec-ico">🎬</span><h2>Finale Picks</h2><div class="sec-ln"></div></div>
   <div class="quip" onclick="jeffSay(Q.finale)">
     <p><strong>Jeff:</strong> "Kyle took the finale round with 17 bonus points — correctly calling Aubry as the winner. Well played."</p>
     <div class="quip-cta">▶ TAP TO HEAR JEFF</div>
@@ -588,25 +685,26 @@ footer{text-align:center;padding:clamp(40px,8vw,60px) 20px max(32px,env(safe-are
 </section>
 
 <footer>
-  <span class="footer-fire">🔥🏝️🔥</span>
+  <span class="footer-torches">🔥🏝️🔥</span>
   <div class="footer-snuff">The tribe has spoken.</div>
-  <div class="footer-meta">SURVIVOR 50 POOL · 12 PLAYERS · $240 · 17 EPISODES · 2026</div>
+  <div class="footer-meta">SURVIVOR 50 POOL · 12 PLAYERS · $240 · 2026</div>
 </footer>
 
 <!-- MODAL -->
-<div id="modal-bg" onclick="modalClose(event)">
+<div id="modal-bg" onclick="if(event.target===this)modalX()">
   <div id="modal-box">
-    <div class="modal-handle"></div>
-    <button id="modal-close-btn" onclick="modalCloseDirect()">✕</button>
+    <div class="m-handle"></div>
+    <button id="modal-x" onclick="modalX()">✕</button>
     <div id="modal-body"></div>
   </div>
 </div>
 
 <script>
-// ══ DATA ══
-const EL_KEY = 'd81aed479206760fef571e657a434cfb94e6592490d51d26dd491a5a51840d1f';
-const EL_VOICE = 'pNInz6obpgDQGcFmaJgB'; // Adam
+// ══ CONFIG ══
+const EL_KEY  = 'sk_0928b4d12deed627f10e24bccf32282ff704868f5f52a892';
+const EL_VOICE= 'VR6AewLTigWG4xSOukaG'; // Arnold — deep, commanding American
 
+// ══ DATA ══
 const players = [
   {name:'James',   emoji:'👑',color:'#FFD700',rank:1, weekly:52,draft:60,ep6:8, wild:6, finale:15,total:141},
   {name:'Aaron',   emoji:'🌟',color:'#FF5722',rank:2, weekly:49,draft:50,ep6:11,wild:6, finale:15,total:131},
@@ -621,17 +719,13 @@ const players = [
   {name:'Aly',     emoji:'🌊',color:'#81D4FA',rank:11,weekly:46,draft:24,ep6:11,wild:11,finale:6, total:98},
   {name:'Paul',    emoji:'🎵',color:'#BCAAA4',rank:12,weekly:45,draft:22,ep6:9, wild:6, finale:15,total:97},
 ];
-
-const wb = {
-  James:{s:14,e:16,i:9,id:13},Aaron:{s:17,e:12,i:8,id:12},
-  Taryn:{s:16,e:16,i:10,id:16},Amy:{s:15,e:18,i:9,id:13},
-  Kristin:{s:17,e:26,i:9,id:10},Kyle:{s:16,e:12,i:10,id:13},
-  Joe:{s:16,e:12,i:9,id:15},Mike:{s:17,e:12,i:11,id:13},
-  Nick:{s:15,e:14,i:10,id:13},Courtney:{s:16,e:10,i:10,id:13},
-  Aly:{s:13,e:8,i:12,id:13},Paul:{s:15,e:8,i:11,id:11},
+const wb={
+  James:{s:14,e:16,i:9,id:13},Aaron:{s:17,e:12,i:8,id:12},Taryn:{s:16,e:16,i:10,id:16},
+  Amy:{s:15,e:18,i:9,id:13},Kristin:{s:17,e:26,i:9,id:10},Kyle:{s:16,e:12,i:10,id:13},
+  Joe:{s:16,e:12,i:9,id:15},Mike:{s:17,e:12,i:11,id:13},Nick:{s:15,e:14,i:10,id:13},
+  Courtney:{s:16,e:10,i:10,id:13},Aly:{s:13,e:8,i:12,id:13},Paul:{s:15,e:8,i:11,id:11},
 };
-
-const wpts = {
+const wpts={
   James:   [3,3,5,8,13,20,20,23,25,33,33,35,37,44,44,48,52],
   Aaron:   [2,2,5,6,9,15,15,17,18,27,27,29,31,40,40,46,49],
   Taryn:   [3,3,6,9,12,21,21,22,25,32,32,34,36,45,45,55,58],
@@ -645,15 +739,14 @@ const wpts = {
   Aly:     [3,3,5,8,10,18,18,20,21,28,28,30,31,38,38,42,46],
   Paul:    [3,3,6,8,10,16,16,19,20,27,27,29,30,36,36,39,45],
 };
-
-const cast = [
+const cast=[
   {name:'Aubry Bracco',    e:'👑',s:'winner',w:null},
   {name:'Jonathan Young',  e:'💪',s:'ftc',   w:null},
   {name:'Joe Hunter',      e:'🦁',s:'ftc',   w:null},
-  {name:'Cirie Fields',    e:'🎯',s:'elim',  w:17},
-  {name:'Rick Devens',     e:'🏃',s:'elim',  w:16},
-  {name:'Rizo Velovic',    e:'⚡',s:'elim',  w:15},
-  {name:'Tiffany Ervin',   e:'💫',s:'elim',  w:14},
+  {name:'Rizo Velovic',    e:'⚡',s:'elim',  w:17},
+  {name:'Tiffany Ervin',   e:'💫',s:'elim',  w:16},
+  {name:'Rick Devens',     e:'🏃',s:'elim',  w:15},
+  {name:'Cirie Fields',    e:'🎯',s:'elim',  w:14},
   {name:'Emily Flippen',   e:'🦅',s:'elim',  w:13},
   {name:'Ozzy Lusth',      e:'🏄',s:'elim',  w:12},
   {name:'Steph LaGrossa K.',e:'🌺',s:'elim', w:11},
@@ -672,23 +765,21 @@ const cast = [
   {name:'Kyle Fraser',     e:'🏔️',s:'elim',  w:1},
   {name:'Jenna Lewis-D.',  e:'⭐',s:'elim',  w:1},
 ];
-
-const drafts = [
+const drafts=[
   {player:'James',   p1:'Aubry Bracco',      in1:true, p2:'Kamilla Karthig.',  in2:false,pts:60},
   {player:'Taryn',   p1:'Jonathan Young',    in1:true, p2:'Steph LaGrossa K.', in2:false,pts:51},
   {player:'Aaron',   p1:'Rizo Velovic',      in1:false,p2:'Ozzy Lusth',         in2:false,pts:50},
   {player:'Amy',     p1:'Dee Valladares',    in1:false,p2:'Joe Hunter',          in2:true, pts:47},
   {player:'Nick',    p1:'Tiffany Ervin',     in1:false,p2:'Savannah Louie',     in2:false,pts:34},
-  {player:'Joe',     p1:'Genevieve Mush.',   in1:false,p2:'Emily Flippen',       in2:false,pts:25},
   {player:'Kyle',    p1:'Cirie Fields',      in1:false,p2:'Angelina Keeley',    in2:false,pts:27},
+  {player:'Joe',     p1:'Genevieve Mush.',   in1:false,p2:'Emily Flippen',       in2:false,pts:25},
   {player:'Aly',     p1:'Rick Devens',       in1:false,p2:'Q Burdette',          in2:false,pts:24},
   {player:'Courtney',p1:'Charlie Davis',     in1:false,p2:'Christian Hubicki',  in2:false,pts:22},
   {player:'Paul',    p1:'Coach Wade',        in1:false,p2:'Colby Donaldson',    in2:false,pts:22},
   {player:'Mike',    p1:'Jenna Lewis-D.',    in1:false,p2:'Chrissy Hofbeck',    in2:false,pts:18},
   {player:'Kristin', p1:'Mike White',        in1:false,p2:'Kyle Fraser',         in2:false,pts:8},
 ];
-
-const finale = [
+const finale=[
   {player:'Kyle',    winner:'Aubry',total:17},
   {player:'Aaron',   winner:'Aubry',total:15},
   {player:'James',   winner:'Aubry',total:15},
@@ -703,87 +794,60 @@ const finale = [
   {player:'Nick',    winner:'—',    total:0},
 ];
 
-// ══ JEFF AUDIO ══
-const Q = {
-  intro:    "39 days. 12 pool players. 1 season of Survivor. The votes have been tallied. Aubry Bracco is the Sole Survivor of Season 50. And that means James takes home 200 dollars as your pool champion. The tribe has spoken.",
-  standings:"After 17 brutal episodes, one pool player separated themselves. James randomly drew Aubry Bracco in the draft — and she went on to win the whole season. 141 points total. That is how the game works. Sometimes luck and skill line up perfectly.",
-  weekly:   "Kristin. Twenty-six elimination points. Nobody else in this pool came close. Week after week, she called the boot correctly. That is not luck — that is Survivor instincts. The forty dollars is hers. Period.",
-  arc:      "Taryn led most of the season. Kristin surged late. James quietly climbed. And then the finale happened and everything changed. This is what makes Survivor so compelling. You are never out of it until the votes are read.",
-  cast:     "Aubry Bracco. After being voted out in multiple previous seasons, she came back for Season 50 and did what she has always been capable of. She won. Jonathan Young and Joe Hunter fought hard to get to that Final Tribal Council — but only one person wins. The tribe has spoken — for everyone else.",
-  draft:    "The draft was completely random — nobody chose their castaways. James randomly landed Aubry Bracco, who went on to win the entire season — sixty draft points just from the draft alone. Kristin randomly drew Mike White and Kyle Fraser for eight points. Sometimes the island just is not on your side.",
-  finale:   "Before the finale, everyone had one last shot to earn bonus points. Kyle took this round with seventeen bonus points — correctly calling Aubry as the winner. Well played, Kyle. Very well played.",
+// ══ JEFF LINES ══
+const Q={
+  intro:   "39 days. 12 pool players. One season of Survivor. The votes have been tallied. James — you have won the pool. Two hundred dollars. Congratulations. The tribe has spoken.",
+  standings:"James randomly drew Aubry Bracco in the draft. She went on to win the entire season. One hundred and forty one points. James takes home the two hundred dollars. That is how this game works.",
+  weekly:  "Kristin. Twenty six elimination points. Nobody else in this pool came close. Week after week, she called the boot correctly. That is not luck. That is Survivor instincts. The forty dollars is hers.",
+  arc:     "Taryn led for most of the season. Kristin surged late. James quietly climbed. And then the finale happened — and everything changed. You are never out of it until the last vote is read.",
+  cast:    "Aubry Bracco came back for Season 50 and did what she has always been capable of. She won. Jonathan Young and Joe Hunter fought hard — but only one person wins Survivor. The tribe has spoken — for everyone else.",
+  draft:   "The draft was completely random. Nobody chose their castaways. James randomly landed Aubry Bracco — sixty draft points. Kristin drew Mike White and Kyle Fraser for eight. Sometimes the island is not on your side.",
+  finale:  "Kyle took the finale round with seventeen bonus points — correctly calling Aubry as the winner. Well played, Kyle. Very well played.",
 };
-const qList = [Q.intro,Q.standings,Q.weekly,Q.arc,Q.cast,Q.draft,Q.finale];
-let qIdx=0, curAudio=null, waveTimer=null;
+const qList=[Q.intro,Q.standings,Q.weekly,Q.arc,Q.cast,Q.draft,Q.finale];
+let qIdx=0,curAudio=null,waveTimer=null;
 
+// ══ JEFF AUDIO ══
 function buildWave(){
-  const w=document.getElementById('jeff-wave');
-  w.innerHTML='';
-  for(let i=0;i<18;i++){const b=document.createElement('div');b.className='jeff-bar';w.appendChild(b);}
+  const w=document.getElementById('jeff-wv');w.innerHTML='';
+  for(let i=0;i<18;i++){const b=document.createElement('div');w.appendChild(b);}
 }
 function animWave(on){
   clearInterval(waveTimer);
-  const bars=document.querySelectorAll('.jeff-bar');
-  if(on) waveTimer=setInterval(()=>bars.forEach(b=>b.style.height=(3+Math.random()*20)+'px'),90);
+  const bars=document.querySelectorAll('#jeff-wv div');
+  if(on) waveTimer=setInterval(()=>bars.forEach(b=>b.style.height=(3+Math.random()*18)+'px'),90);
   else bars.forEach(b=>b.style.height='3px');
 }
-function setStatus(txt){const el=document.getElementById('jeff-status');if(el)el.textContent=txt;}
-function jeffOpen(){
-  document.getElementById('jeff-panel').classList.add('open');
-  document.getElementById('jeff-fab').style.display='none';
-}
-function jeffClose(){
-  jeffStop();
-  document.getElementById('jeff-panel').classList.remove('open');
-  document.getElementById('jeff-fab').style.display='flex';
-}
+function setSt(t){const e=document.getElementById('jeff-st');if(e)e.textContent=t;}
+function jeffOpen(){document.getElementById('jeff-panel').classList.add('open');document.getElementById('jeff-fab').style.display='none';}
+function jeffClose(){jeffStop();document.getElementById('jeff-panel').classList.remove('open');document.getElementById('jeff-fab').style.display='flex';}
 function jeffStop(){
   if(curAudio){curAudio.pause();curAudio=null;}
-  if('speechSynthesis' in window) window.speechSynthesis.cancel();
-  animWave(false);
-  document.getElementById('jeff-dot').style.opacity='0';
-  document.getElementById('jeff-play').disabled=false;
-  setStatus('READY');
+  if('speechSynthesis' in window)window.speechSynthesis.cancel();
+  animWave(false);document.getElementById('jeff-dot').style.opacity='0';
+  document.getElementById('jeff-play').disabled=false;setSt('READY');
 }
-function isLocalFile(){return location.protocol==='file:';}
-
 function speechFallback(text){
-  // Web Speech API fallback for local files
-  if(!('speechSynthesis' in window)){setStatus('NO TTS AVAILABLE');return;}
+  if(!('speechSynthesis' in window)){setSt('NO TTS');return;}
   window.speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  const voices=window.speechSynthesis.getVoices();
-  // Try to get a deep male voice
-  const pick=voices.find(v=>/(daniel|david|alex|fred|tom|aaron|bruce|ralph)/i.test(v.name)&&v.lang.startsWith('en'))
-    || voices.find(v=>v.lang.startsWith('en-US')&&!/(female|woman|zira|susan|samantha|victoria|karen|moira|fiona)/i.test(v.name))
-    || voices.find(v=>v.lang.startsWith('en'));
-  if(pick) u.voice=pick;
-  u.pitch=0.82; u.rate=0.86; u.volume=1;
-  u.onstart=()=>{animWave(true);document.getElementById('jeff-dot').style.opacity='1';setStatus('SPEAKING (browser voice)');};
-  u.onend=()=>{animWave(false);document.getElementById('jeff-dot').style.opacity='0';document.getElementById('jeff-play').disabled=false;setStatus('READY');};
+  const vs=window.speechSynthesis.getVoices();
+  const pick=vs.find(v=>/(daniel|david|alex|fred|tom|aaron|bruce|ralph|oliver|george)/i.test(v.name)&&v.lang.startsWith('en'))
+    ||vs.find(v=>v.lang.startsWith('en-US')&&!/(female|woman|zira|susan|samantha|victoria|karen|moira|fiona|google us english$)/i.test(v.name))
+    ||vs.find(v=>v.lang.startsWith('en'));
+  if(pick)u.voice=pick;
+  u.pitch=0.8;u.rate=0.84;u.volume=1;
+  u.onstart=()=>{animWave(true);document.getElementById('jeff-dot').style.opacity='1';setSt('SPEAKING...');};
+  u.onend=()=>{animWave(false);document.getElementById('jeff-dot').style.opacity='0';document.getElementById('jeff-play').disabled=false;setSt('READY');};
   window.speechSynthesis.speak(u);
 }
-
 async function jeffSay(text){
   jeffStop();
-  document.getElementById('jeff-quote').textContent=text;
+  document.getElementById('jeff-q').textContent=text;
   jeffOpen();
   document.getElementById('jeff-play').disabled=true;
-
-  // If opened as local file, browser blocks external API calls - use speech fallback
-  if(isLocalFile()){
-    setStatus('BROWSER VOICE (local file)');
-    speechFallback(text);
-    return;
-  }
-
-  if(!EL_KEY || EL_KEY.includes('PASTE_YOUR_ELEVENLABS')){
-    setStatus('BROWSER VOICE — ADD ELEVENLABS KEY');
-    speechFallback(text);
-    return;
-  }
-
-  setStatus('GENERATING...');
+  if(location.protocol==='file:'){setSt('BROWSER VOICE (local)');speechFallback(text);return;}
+  setSt('GENERATING...');
   try{
     const r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${EL_VOICE}`,{
       method:'POST',
@@ -793,83 +857,45 @@ async function jeffSay(text){
     if(!r.ok){
       let msg=r.status;
       try{const j=await r.json();msg=j?.detail?.message||j?.detail||msg;}catch(_){}
-      setStatus(`API ERROR ${msg} — using browser voice`);
-      speechFallback(text);
+      setSt(`API ERROR ${msg}`);
+      document.getElementById('jeff-q').textContent=`Error: ${msg}`;
+      document.getElementById('jeff-play').disabled=false;
       return;
     }
     const blob=await r.blob();
     const url=URL.createObjectURL(blob);
     curAudio=new Audio(url);
-    curAudio.onplay=()=>{animWave(true);document.getElementById('jeff-dot').style.opacity='1';setStatus('🎙️ JEFF PROBST');};
-    curAudio.onended=()=>{animWave(false);document.getElementById('jeff-dot').style.opacity='0';document.getElementById('jeff-play').disabled=false;setStatus('READY');URL.revokeObjectURL(url);};
-    curAudio.onerror=()=>{setStatus('PLAYBACK ERROR — using browser voice');speechFallback(text);};
+    curAudio.onplay=()=>{animWave(true);document.getElementById('jeff-dot').style.opacity='1';setSt('🎙️ SPEAKING');};
+    curAudio.onended=()=>{animWave(false);document.getElementById('jeff-dot').style.opacity='0';document.getElementById('jeff-play').disabled=false;setSt('READY');URL.revokeObjectURL(url);};
+    curAudio.onerror=()=>{setSt('PLAYBACK ERROR');speechFallback(text);};
     curAudio.play();
-  }catch(e){
-    setStatus('USING BROWSER VOICE');
-    speechFallback(text);
-  }
+  }catch(e){setSt('ERROR: '+e.message);speechFallback(text);}
 }
 function jeffPlay(){jeffSay(qList[qIdx%qList.length]);}
 function jeffNext(){qIdx=(qIdx+1)%qList.length;jeffSay(qList[qIdx]);}
 
-// ══ PODIUM ══
-function buildPodium(){
-  const top3=players.slice(0,3);
-  const el=document.getElementById('podium');
-  el.innerHTML='';
-  top3.forEach((p,i)=>{
-    const d=document.createElement('div');
-    d.className=`pod-card pod-${i+1}`;
-    d.onclick=()=>openModal(p.name);
-    d.innerHTML=`
-      <div class="pod-rank">${['🥇','🥈','🥉'][i]}</div>
-      <div class="pod-info">
-        <div class="pod-name">${p.emoji} ${p.name}</div>
-        <div class="pod-tag">${i===0?'👑 $200 CHAMPION':i===1?'🥈 RUNNER-UP':'🥉 THIRD PLACE'}</div>
-        <div class="pod-pills">
-          <span class="pill pill-w">Wkly ${p.weekly}</span>
-          <span class="pill pill-d">Draft ${p.draft}</span>
-          <span class="pill pill-f">Fin ${p.finale}</span>
-        </div>
-      </div>
-      <div style="text-align:right;">
-        <div class="pod-score">${p.total}</div>
-        <div class="pod-pts">pts</div>
-      </div>`;
-    el.appendChild(d);
-  });
-}
-
 // ══ LEADERBOARD ══
 let sortKey='total';
 function sortLB(key,btn){
-  sortKey=key;
-  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  buildLB();
+  sortKey=key;document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');buildLB();
 }
 function buildLB(){
   const sorted=[...players].sort((a,b)=>b[sortKey]-a[sortKey]);
-  const max={weekly:62,draft:60,ep6:17,wild:29,finale:17};
+  const max={weekly:62,draft:60,finale:17};
   const medals=['🥇','🥈','🥉'];
-  const tbody=document.getElementById('lb-body');
-  tbody.innerHTML='';
+  const tbody=document.getElementById('lb-body');tbody.innerHTML='';
   sorted.forEach((p,i)=>{
-    const tr=document.createElement('tr');
-    tr.onclick=()=>openModal(p.name);
-    tr.innerHTML=`
-      <td>${medals[i]||(i+1)}</td>
-      <td>
-        <div class="lb-name">${p.emoji} ${p.name}</div>
-        ${p.name==='James'?'<div class="lb-sub" style="color:var(--gold);">👑 $200 CHAMP</div>':''}
-        ${p.name==='Kristin'?'<div class="lb-sub" style="color:var(--fire);">🔥 $40 WEEKLY</div>':''}
+    const tr=document.createElement('tr');tr.onclick=()=>openModal(p.name);
+    tr.innerHTML=`<td>${medals[i]||(i+1)}</td>
+      <td><div class="lb-nm">${p.emoji} ${p.name}</div>
+        ${p.name==='James'?'<div class="lb-sub" style="color:var(--gold)">👑 $200 POOL CHAMP</div>':''}
+        ${p.name==='Kristin'?'<div class="lb-sub" style="color:var(--fire)">🔥 $40 WEEKLY</div>':''}
       </td>
-      <td><div class="bar-wrap"><div class="bar bar-w" style="width:${(p.weekly/max.weekly)*70}px"></div><span class="bnum">${p.weekly}</span></div></td>
-      <td><div class="bar-wrap"><div class="bar bar-d" style="width:${(p.draft/max.draft)*70}px"></div><span class="bnum">${p.draft}</span></div></td>
-      <td class="hide-sm" style="display:none;"><span class="bnum">${p.ep6}</span></td>
-      <td class="hide-sm" style="display:none;"><span class="bnum">${p.wild}</span></td>
-      <td><div class="bar-wrap"><div class="bar bar-f" style="width:${(p.finale/max.finale)*60}px"></div><span class="bnum">${p.finale}</span></div></td>
-      <td><div class="lb-total">${p.total}</div></td>`;
+      <td><div class="bw"><div class="bar bar-w" style="width:${(p.weekly/max.weekly)*65}px"></div><span class="bn">${p.weekly}</span></div></td>
+      <td><div class="bw"><div class="bar bar-d" style="width:${(p.draft/max.draft)*65}px"></div><span class="bn">${p.draft}</span></div></td>
+      <td><div class="bw"><div class="bar bar-f" style="width:${(p.finale/max.finale)*55}px"></div><span class="bn">${p.finale}</span></div></td>
+      <td><div class="lb-tot">${p.total}</div></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -877,16 +903,11 @@ function buildLB(){
 // ══ WEEKLY BARS ══
 function buildWBars(){
   const sorted=[...players].sort((a,b)=>b.weekly-a.weekly);
-  const max=62;
-  const c=document.getElementById('wbars');
-  c.innerHTML='';
+  const max=62;const c=document.getElementById('wbars');c.innerHTML='';
   sorted.forEach(p=>{
-    const w=wb[p.name];
-    const isK=p.name==='Kristin';
-    const row=document.createElement('div');
-    row.className='wbar-row';
-    row.innerHTML=`
-      <div class="wbar-name" style="color:${isK?'var(--ember)':'inherit'}">${p.name}${isK?' 🔥':''}</div>
+    const w=wb[p.name];const isK=p.name==='Kristin';
+    const row=document.createElement('div');row.className='wbar-row';
+    row.innerHTML=`<div class="wbar-nm" style="color:${isK?'var(--ember)':'inherit'}">${p.name}${isK?' 🔥':''}</div>
       <div class="wbar-track">
         <div class="wbar-seg seg-s" style="width:${w.s/max*100}%"></div>
         <div class="wbar-seg seg-e" style="width:${w.e/max*100}%"></div>
@@ -897,10 +918,10 @@ function buildWBars(){
     c.appendChild(row);
   });
   const leg=document.createElement('div');
-  leg.style.cssText='display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;';
-  [['seg-s','Safe'],['seg-e','Elim'],['seg-i','Immunity'],['seg-id','Idol']].forEach(([cls,lbl])=>{
-    leg.innerHTML+=`<div style="display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,.4);">
-      <div class="wbar-seg ${cls}" style="width:12px;height:12px;border-radius:2px;"></div>${lbl}</div>`;
+  leg.style.cssText='display:flex;gap:10px;margin-top:7px;flex-wrap:wrap;';
+  [['seg-s','Safe'],['seg-e','Elim'],['seg-i','Imm'],['seg-id','Idol']].forEach(([cls,lbl])=>{
+    leg.innerHTML+=`<div style="display:flex;align-items:center;gap:4px;font-size:9px;color:rgba(255,255,255,.35);">
+      <div class="wbar-seg ${cls}" style="width:10px;height:10px;border-radius:2px;"></div>${lbl}</div>`;
   });
   c.appendChild(leg);
 }
@@ -908,75 +929,65 @@ function buildWBars(){
 // ══ WEEKLY TABLE ══
 function buildWTable(){
   const sorted=[...players].sort((a,b)=>b.weekly-a.weekly);
-  const medals=['🥇','🥈','🥉'];
-  const tbody=document.getElementById('wtbody');
-  tbody.innerHTML='';
+  const medals=['🥇','🥈','🥉'];const tbody=document.getElementById('wtbody');tbody.innerHTML='';
   sorted.forEach((p,i)=>{
-    const w=wb[p.name];
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${medals[i]||(i+1)}</td><td><div class="lb-name">${p.emoji} ${p.name}</div></td>
+    const w=wb[p.name];const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${medals[i]||(i+1)}</td><td><div class="lb-nm">${p.emoji} ${p.name}</div></td>
       <td>${w.s}</td><td style="color:${w.e===26?'var(--gold)':'inherit'}">${w.e}${w.e===26?' 👑':''}</td>
-      <td>${w.i}</td><td>${w.id}</td><td><div class="lb-total">${p.weekly}</div></td>`;
+      <td>${w.i}</td><td>${w.id}</td><td><div class="lb-tot">${p.weekly}</div></td>`;
     tbody.appendChild(tr);
   });
 }
 
 // ══ LINE CHART ══
-const lineColors={James:'#FFD700',Aaron:'#FF5722',Taryn:'#FF8A65',Amy:'#A5D6A7',Kristin:'#CE93D8',
+const LC={James:'#FFD700',Aaron:'#FF5722',Taryn:'#FF8A65',Amy:'#A5D6A7',Kristin:'#CE93D8',
   Kyle:'#80DEEA',Joe:'#FFCC02',Mike:'#EF9A9A',Nick:'#B0BEC5',Courtney:'#F48FB1',Aly:'#81D4FA',Paul:'#BCAAA4'};
-let activeLines=new Set(['James','Aaron','Taryn','Kristin','Amy']);
+let AL=new Set(['James','Aaron','Taryn','Kristin','Amy']);
 function buildChart(){
   const svg=document.getElementById('line-svg');
-  const W=svg.getBoundingClientRect().width||360, H=260;
-  const pad={l:32,r:80,t:16,b:28};
-  const cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
+  const W=svg.getBoundingClientRect().width||340,H=240;
+  const pad={l:30,r:76,t:14,b:26};
+  const cW=W-pad.l-pad.r,cH=H-pad.t-pad.b;
   const maxV=62,eps=17;
   const xp=i=>pad.l+(i/(eps-1))*cW;
   const yp=v=>pad.t+cH-(v/maxV)*cH;
   let html='';
   for(let i=0;i<=4;i++){
     const gv=(maxV/4)*i,gy=yp(gv);
-    html+=`<line x1="${pad.l}" y1="${gy}" x2="${W-pad.r}" y2="${gy}" stroke="rgba(255,255,255,.05)" stroke-width="1"/>`;
-    html+=`<text x="${pad.l-4}" y="${gy+4}" fill="rgba(255,255,255,.25)" font-size="9" text-anchor="end" font-family="Oswald">${Math.round(gv)}</text>`;
+    html+=`<line x1="${pad.l}" y1="${gy}" x2="${W-pad.r}" y2="${gy}" stroke="rgba(255,255,255,.04)" stroke-width="1"/>`;
+    html+=`<text x="${pad.l-3}" y="${gy+4}" fill="rgba(255,255,255,.22)" font-size="8" text-anchor="end" font-family="Oswald">${Math.round(gv)}</text>`;
   }
-  for(let i=0;i<eps;i+=2){
-    html+=`<text x="${xp(i)}" y="${H-8}" fill="rgba(255,255,255,.25)" font-size="9" text-anchor="middle" font-family="Oswald">W${i+1}</text>`;
-  }
+  for(let i=0;i<eps;i+=2)
+    html+=`<text x="${xp(i)}" y="${H-7}" fill="rgba(255,255,255,.22)" font-size="8" text-anchor="middle" font-family="Oswald">W${i+1}</text>`;
   Object.entries(wpts).forEach(([name,vals])=>{
-    const on=activeLines.has(name);
+    const on=AL.has(name);
     const pts=vals.map((v,i)=>`${xp(i)},${yp(v)}`).join(' ');
-    html+=`<polyline points="${pts}" fill="none" stroke="${lineColors[name]}" stroke-width="${on?2.5:1}" opacity="${on?.9:.1}" stroke-linejoin="round" style="cursor:pointer" onclick="toggleLine('${name}')"/>`;
+    html+=`<polyline points="${pts}" fill="none" stroke="${LC[name]}" stroke-width="${on?2.5:1}" opacity="${on?.9:.08}" stroke-linejoin="round" style="cursor:pointer" onclick="toggleLine('${name}')"/>`;
     if(on){
       const lx=xp(vals.length-1),ly=yp(vals[vals.length-1]);
-      html+=`<circle cx="${lx}" cy="${ly}" r="4" fill="${lineColors[name]}"/>`;
-      html+=`<text x="${lx+6}" y="${ly+4}" fill="${lineColors[name]}" font-size="10" font-family="Oswald">${name}</text>`;
+      html+=`<circle cx="${lx}" cy="${ly}" r="3.5" fill="${LC[name]}"/>`;
+      html+=`<text x="${lx+5}" y="${ly+4}" fill="${LC[name]}" font-size="9" font-family="Oswald">${name}</text>`;
     }
   });
-  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
-  svg.innerHTML=html;
-  const leg=document.getElementById('chart-leg');
-  leg.innerHTML='';
-  Object.keys(lineColors).forEach(name=>{
-    const d=document.createElement('div');
-    d.className='leg-item'+(activeLines.has(name)?' on':'');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=html;
+  const leg=document.getElementById('chart-leg');leg.innerHTML='';
+  Object.keys(LC).forEach(name=>{
+    const d=document.createElement('div');d.className='leg-i'+(AL.has(name)?' on':'');
     d.onclick=()=>toggleLine(name);
-    d.innerHTML=`<div class="leg-dot" style="background:${lineColors[name]};opacity:${activeLines.has(name)?1:.3}"></div>${name}`;
+    d.innerHTML=`<div class="leg-dot" style="background:${LC[name]};opacity:${AL.has(name)?1:.3}"></div>${name}`;
     leg.appendChild(d);
   });
 }
-function toggleLine(name){activeLines.has(name)?activeLines.delete(name):activeLines.add(name);buildChart();}
+function toggleLine(name){AL.has(name)?AL.delete(name):AL.add(name);buildChart();}
 
 // ══ CAST ══
 function buildCast(){
   const g=document.getElementById('cast-grid');
   cast.forEach(c=>{
-    const d=document.createElement('div');
-    d.className=`cast-card ${c.s}`;
-    d.innerHTML=`<span class="cast-emoji">${c.e}</span>
-      <div class="cast-cname">${c.name}</div>
-      <div class="${c.s==='winner'?'cast-badge badge-win':c.s==='ftc'?'cast-badge badge-ftc':'cast-badge badge-out'}">
-        ${c.s==='winner'?'👑 WINNER':c.s==='ftc'?'FINAL 3':`OUT W${c.w}`}
-      </div>`;
+    const d=document.createElement('div');d.className=`cc ${c.s}`;
+    d.innerHTML=`<span class="cc-em">${c.e}</span><div class="cc-nm">${c.name}</div>
+      <div class="${c.s==='winner'?'cc-badge b-win':c.s==='ftc'?'cc-badge b-ftc':'cc-badge b-out'}">
+        ${c.s==='winner'?'👑 WINNER':c.s==='ftc'?'FINAL 3':`OUT W${c.w}`}</div>`;
     g.appendChild(d);
   });
 }
@@ -987,14 +998,12 @@ function buildDraft(){
   const sorted=[...drafts].sort((a,b)=>b.pts-a.pts);
   sorted.forEach((d,i)=>{
     const p=players.find(x=>x.name===d.player);
-    const el=document.createElement('div');
-    el.className='draft-card'+(i===0?' best':'');
+    const el=document.createElement('div');el.className='dc'+(i===0?' best':'');
     el.onclick=()=>openModal(d.player);
-    el.innerHTML=`
-      <div class="draft-pname">${p?.emoji||''} ${d.player}</div>
-      <div class="draft-pick"><div class="dot ${d.in1?'dot-in':'dot-out'}"></div>${d.p1}${d.in1?' ✓':''}</div>
-      <div class="draft-pick"><div class="dot ${d.in2?'dot-in':'dot-out'}"></div>${d.p2}${d.in2?' ✓':''}</div>
-      <div class="draft-pts">${d.pts} <span>draft pts</span></div>`;
+    el.innerHTML=`<div class="dc-nm">${p?.emoji||''} ${d.player}</div>
+      <div class="dc-pick"><div class="dot ${d.in1?'dot-in':'dot-out'}"></div>${d.p1}${d.in1?' ✓':''}</div>
+      <div class="dc-pick"><div class="dot ${d.in2?'dot-in':'dot-out'}"></div>${d.p2}${d.in2?' ✓':''}</div>
+      <div class="dc-pts">${d.pts} <span>pts</span></div>`;
     g.appendChild(el);
   });
 }
@@ -1005,19 +1014,12 @@ function buildFinale(){
   const sorted=[...finale].sort((a,b)=>b.total-a.total);
   sorted.forEach((f,i)=>{
     const p=players.find(x=>x.name===f.player);
-    const correct=f.winner==='Aubry';
-    const el=document.createElement('div');
-    el.className='fin-card'+(i===0?' best':'');
-    el.innerHTML=`
-      <div class="fin-pname">${p?.emoji||''} ${f.player}</div>
-      <div class="fin-row">
-        <span class="fin-lbl">Winner Pick</span>
-        <span class="fin-val" style="color:${correct?'#69D899':'inherit'}">${f.winner}${correct?' ✓':''}</span>
-      </div>
-      <div class="fin-total">
-        <span class="fin-tlbl">FINALE BONUS</span>
-        <span class="fin-tnum">${f.total}pts</span>
-      </div>`;
+    const ok=f.winner==='Aubry';
+    const el=document.createElement('div');el.className='fc'+(i===0?' best':'');
+    el.innerHTML=`<div class="fc-nm">${p?.emoji||''} ${f.player}</div>
+      <div class="fc-row"><span class="fc-lbl">Winner Pick</span>
+        <span class="fc-val" style="color:${ok?'#69D899':'inherit'}">${f.winner}${ok?' ✓':''}</span></div>
+      <div class="fc-tot"><span class="fc-tlbl">FINALE BONUS</span><span class="fc-tnum">${f.total}pts</span></div>`;
     g.appendChild(el);
   });
 }
@@ -1026,114 +1028,102 @@ function buildFinale(){
 function openModal(name){
   const p=players.find(x=>x.name===name);
   const d=drafts.find(x=>x.player===name);
-  const w=wb[name];
-  const wv=wpts[name];
+  const w=wb[name];const wv=wpts[name];
   if(!p)return;
   const medals=['🥇','🥈','🥉'];
+  const isPoolWinner=p.name==='James';
+  const isWeeklyWinner=p.name==='Kristin';
   document.getElementById('modal-body').innerHTML=`
-    <div style="text-align:center;margin-bottom:20px;">
-      <div style="font-size:48px;">${p.emoji}</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:2px;color:${p.color};">${p.name}</div>
-      <div style="font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.3);margin-top:4px;">${medals[p.rank-1]||'#'+p.rank} RANK · ${p.total} TOTAL PTS</div>
+    <div style="text-align:center;margin-bottom:18px;">
+      ${isPoolWinner?`<div style="font-size:10px;letter-spacing:4px;color:var(--fire);margin-bottom:6px;">👑 $200 POOL CHAMPION</div>`:''}
+      <div style="font-size:44px;">${p.emoji}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:2px;color:${p.color};">${p.name}</div>
+      ${isPoolWinner?`<div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--gold);">TAKES HOME $200</div>`:''}
+      ${isWeeklyWinner?`<div style="font-size:10px;letter-spacing:3px;color:var(--fire);margin-top:4px;">🔥 $40 WEEKLY CHAMPION</div>`:''}
+      <div style="font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.25);margin-top:4px;">${medals[p.rank-1]||'#'+p.rank} RANK · ${p.total} TOTAL PTS</div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px;">
       ${[['Weekly',p.weekly,'var(--fire)'],['Draft',p.draft,'#52C77A'],['EP6',p.ep6,'#7B87FF'],['Wild',p.wild,'#7B87FF'],['Finale',p.finale,'var(--gold)'],['TOTAL',p.total,'var(--cream)']].map(([l,v,c])=>`
-        <div style="background:rgba(255,255,255,.04);border-radius:6px;padding:10px;text-align:center;border:1px solid rgba(255,255,255,.06);">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:${c};">${v}</div>
-          <div style="font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.3);">${l}</div>
+        <div style="background:rgba(255,255,255,.04);border-radius:5px;padding:9px;text-align:center;border:1px solid rgba(255,255,255,.06);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:${c};">${v}</div>
+          <div style="font-size:7px;letter-spacing:2px;color:rgba(255,255,255,.28);">${l}</div>
         </div>`).join('')}
     </div>
-    <div style="margin-bottom:16px;">
-      <div style="font-size:9px;letter-spacing:3px;color:var(--ember);margin-bottom:8px;">WEEKLY BREAKDOWN</div>
-      ${[['Safe',w.s,70,'rgba(255,69,0,.7)'],['Elim',w.e,100,'rgba(255,140,0,.8)'],['Imm',w.i,45,'rgba(105,216,153,.6)'],['Idol',w.id,55,'rgba(161,140,209,.7)']].map(([l,v,mx,c])=>`
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
-          <div style="width:36px;font-size:10px;color:rgba(255,255,255,.4);">${l}</div>
-          <div style="flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;">
+    <div style="margin-bottom:14px;">
+      <div style="font-size:8px;letter-spacing:3px;color:var(--ember);margin-bottom:7px;">WEEKLY BREAKDOWN</div>
+      ${[['Safe',w.s,'rgba(255,69,0,.7)'],['Elim',w.e,'rgba(255,140,0,.8)'],['Imm',w.i,'rgba(105,216,153,.6)'],['Idol',w.id,'rgba(161,140,209,.7)']].map(([l,v,c])=>`
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px;">
+          <div style="width:32px;font-size:9px;color:rgba(255,255,255,.35);">${l}</div>
+          <div style="flex:1;height:12px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;">
             <div style="width:${(v/26)*100}%;height:100%;background:${c};"></div>
           </div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;">${v}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;">${v}</div>
         </div>`).join('')}
     </div>
-    ${d?`<div style="margin-bottom:16px;">
-      <div style="font-size:9px;letter-spacing:3px;color:var(--ember);margin-bottom:8px;">DRAFT PICKS (RANDOM)</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        <div style="padding:10px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid ${d.in1?'rgba(105,216,153,.3)':'rgba(255,69,0,.2)'};">
-          <div style="font-size:11px;">${d.p1}</div>
-          <div style="font-size:9px;color:${d.in1?'#69D899':'var(--fire)'};">${d.in1?'✓ Final 3':'✗ Eliminated'}</div>
+    ${d?`<div style="margin-bottom:14px;">
+      <div style="font-size:8px;letter-spacing:3px;color:var(--ember);margin-bottom:7px;">DRAFT PICKS (RANDOMLY ASSIGNED)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+        <div style="padding:9px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid ${d.in1?'rgba(105,216,153,.28)':'rgba(255,69,0,.18)'};">
+          <div style="font-size:10px;">${d.p1}</div>
+          <div style="font-size:8px;color:${d.in1?'#69D899':'var(--fire)'};">${d.in1?'✓ Final 3':'✗ Eliminated'}</div>
         </div>
-        <div style="padding:10px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid ${d.in2?'rgba(105,216,153,.3)':'rgba(255,69,0,.2)'};">
-          <div style="font-size:11px;">${d.p2}</div>
-          <div style="font-size:9px;color:${d.in2?'#69D899':'var(--fire)'};">${d.in2?'✓ Final 3':'✗ Eliminated'}</div>
+        <div style="padding:9px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid ${d.in2?'rgba(105,216,153,.28)':'rgba(255,69,0,.18)'};">
+          <div style="font-size:10px;">${d.p2}</div>
+          <div style="font-size:8px;color:${d.in2?'#69D899':'var(--fire)'};">${d.in2?'✓ Final 3':'✗ Eliminated'}</div>
         </div>
       </div>
-      <div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:6px;">Draft pts: <span style="color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:18px;">${d.pts}</span></div>
+      <div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:5px;">Draft pts: <span style="color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:17px;">${d.pts}</span></div>
     </div>`:''}
-    <div style="background:rgba(255,255,255,.02);border-radius:6px;padding:12px;margin-bottom:16px;">
-      <div style="font-size:9px;letter-spacing:3px;color:var(--ember);margin-bottom:8px;">WEEKLY ARC</div>
-      <svg width="100%" height="50" viewBox="0 0 300 50" preserveAspectRatio="none">
-        <polyline points="${wv.map((v,i)=>`${(i/(wv.length-1))*300},${50-(v/62)*46}`).join(' ')}" fill="none" stroke="${p.color}" stroke-width="2.5" stroke-linejoin="round"/>
-        <circle cx="300" cy="${50-(wv[wv.length-1]/62)*46}" r="4" fill="${p.color}"/>
+    <div style="background:rgba(255,255,255,.02);border-radius:5px;padding:10px;margin-bottom:14px;">
+      <div style="font-size:8px;letter-spacing:3px;color:var(--ember);margin-bottom:7px;">WEEKLY ARC</div>
+      <svg width="100%" height="44" viewBox="0 0 300 44" preserveAspectRatio="none">
+        <polyline points="${wv.map((v,i)=>`${(i/(wv.length-1))*300},${44-(v/62)*40}`).join(' ')}" fill="none" stroke="${p.color}" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="300" cy="${44-(wv[wv.length-1]/62)*40}" r="3.5" fill="${p.color}"/>
       </svg>
     </div>
-    <button class="jbtn jbtn-play" style="width:100%;font-size:14px;" onclick="jeffSay('${p.name} finished ranked ${p.rank} overall with ${p.total} total points. ${p.weekly} weekly, ${p.draft} draft, ${p.finale} finale bonus. ${p.name==='James'?'The randomly drawn Aubry Bracco winning it all earned James 60 draft points alone. James is your pool champion.':p.name==='Kristin'?'And Kristin won the 40 dollar weekly prize with the most weekly points in the entire pool.':'A solid season overall.'}')">
+    <button class="jb jb-play" style="width:100%;font-size:13px;letter-spacing:1px;" 
+      onclick="jeffSay('${p.name} finished ranked ${p.rank} overall with ${p.total} total points. ${p.name==='James'?'James is your pool champion — two hundred dollars. The randomly drawn Aubry Bracco winning it all was the difference.':p.name==='Kristin'?'Kristin won the forty dollar weekly prize. Twenty six elimination points — the most in the entire pool.':'A solid season overall.'}')" >
       🎙️ HEAR JEFF ON ${p.name.toUpperCase()}
     </button>`;
   document.getElementById('modal-bg').classList.add('open');
   document.body.style.overflow='hidden';
 }
-function modalClose(e){if(e.target===document.getElementById('modal-bg'))modalCloseDirect();}
-function modalCloseDirect(){document.getElementById('modal-bg').classList.remove('open');document.body.style.overflow='';}
+function modalX(){document.getElementById('modal-bg').classList.remove('open');document.body.style.overflow='';}
 
 // ══ TABS ══
 function switchTab(id){
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('on',(i===0&&id==='bars')||(i===1&&id==='table')));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('on',(i===0&&id==='bars')||(i===1&&id==='wtable')));
   document.getElementById('tab-bars').classList.toggle('on',id==='bars');
-  document.getElementById('tab-table').classList.toggle('on',id==='table');
+  document.getElementById('tab-wtable').classList.toggle('on',id==='wtable');
 }
 
 // ══ NAV ══
 function goTo(sel){document.querySelector(sel)?.scrollIntoView({behavior:'smooth',block:'start'});}
 
-// ══ REVEAL ON SCROLL ══
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
-},{threshold:.08});
-document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-
-// ══ RESIZE CHART ══
+// ══ SCROLL REVEAL ══
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
 window.addEventListener('resize',()=>buildChart());
 
-// Preload voices for Web Speech fallback
+// ══ VOICE PRELOAD ══
 if('speechSynthesis' in window){
   window.speechSynthesis.getVoices();
   window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
 }
-// ══ INIT ══
-buildWave();
-buildPodium();
-buildLB();
-buildWBars();
-buildWTable();
-buildChart();
-buildCast();
-buildDraft();
-buildFinale();
 
-// Audio on mobile/Chrome must be triggered by a user tap.
+// ══ INIT ══
+buildWave();buildLB();buildWBars();buildWTable();buildChart();buildCast();buildDraft();buildFinale();
+
+// ══ ENTER ISLAND ══
 function enterIsland(){
-  const enter = document.getElementById('enter-screen');
-  if(enter) enter.classList.add('hide');
+  document.getElementById('enter-screen').classList.add('gone');
   document.getElementById('jeff-fab').style.display='none';
   jeffSay(Q.intro);
 }
-
-// Show Jeff button after the intro screen is dismissed/if user closes panel
 setTimeout(()=>{
-  const enter = document.getElementById('enter-screen');
-  if(!enter || enter.classList.contains('hide')){
-    document.getElementById('jeff-fab').style.display='flex';
-  }
-},1000);
+  if(!document.getElementById('enter-screen').classList.contains('gone'))return;
+  document.getElementById('jeff-fab').style.display='flex';
+},1500);
 </script>
 </body>
 </html>
